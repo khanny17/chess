@@ -25,13 +25,13 @@ public class BishopPiece extends Piece {
 		
 		if(player == Menu.blackPlayer) {
 			try {                
-				image = ImageIO.read(new File("src/images/king_black.png"));
+				image = ImageIO.read(new File("src/images/bishop_black.png"));
 			} catch (IOException ex) {
 				System.out.println("File Not Found!");
 			}
 		} else if(player.equals(Menu.whitePlayer)) {
 			try {                
-				image = ImageIO.read(new File("src/images/king_black.png"));
+				image = ImageIO.read(new File("src/images/bishop_white.png"));
 			} catch (IOException ex) {
 				System.out.println("File Not Found!");
 			}

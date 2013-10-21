@@ -31,7 +31,7 @@ public class KingPiece extends Piece {
 			}
 		} else if(player.equals(Menu.whitePlayer)) {
 			try {                
-				image = ImageIO.read(new File("src/images/king_black.png"));
+				image = ImageIO.read(new File("src/images/king_white.png"));
 			} catch (IOException ex) {
 				System.out.println("File Not Found!");
 			}
