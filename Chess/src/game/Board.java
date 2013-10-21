@@ -40,7 +40,7 @@ public class Board extends GridLayout {
 	}
 	/**
 	 * The array used to represent the board. The board is defined such that
-	 *  (0,0) = A1, the bottom left hand corner for the player playing as white
+	 *  (0,0) = H1, the top left hand corner for the player playing as white
 	 */
 	private Space[][] boardArray;
 	
@@ -57,30 +57,30 @@ public class Board extends GridLayout {
 		//Place the pieces
 		boardArray = new Space[ROWS][COLS];
 		
-		//set up white's players
-		boardArray[0][0] = new Space(new RookPiece(Menu.whitePlayer));
-		boardArray[0][1] = new Space(new KnightPiece(Menu.whitePlayer));
-		boardArray[0][2] = new Space(new BishopPiece(Menu.whitePlayer));
-		boardArray[0][3] = new Space(new QueenPiece(Menu.whitePlayer));
-		boardArray[0][4] = new Space(new KingPiece(Menu.whitePlayer));
-		boardArray[0][5] = new Space(new BishopPiece(Menu.whitePlayer));
-		boardArray[0][6] = new Space(new KnightPiece(Menu.whitePlayer));
-		boardArray[0][7] = new Space(new RookPiece(Menu.whitePlayer));
+		//set up black's players
+		boardArray[0][0] = new Space(new RookPiece(Menu.blackPlayer));
+		boardArray[0][1] = new Space(new KnightPiece(Menu.blackPlayer));
+		boardArray[0][2] = new Space(new BishopPiece(Menu.blackPlayer));
+		boardArray[0][3] = new Space(new QueenPiece(Menu.blackPlayer));
+		boardArray[0][4] = new Space(new KingPiece(Menu.blackPlayer));
+		boardArray[0][5] = new Space(new BishopPiece(Menu.blackPlayer));
+		boardArray[0][6] = new Space(new KnightPiece(Menu.blackPlayer));
+		boardArray[0][7] = new Space(new RookPiece(Menu.blackPlayer));
 		for(int col = 0; col < COLS; col++) {
-			boardArray[1][col] = new Space(new PawnPiece(Menu.whitePlayer));
+			boardArray[1][col] = new Space(new PawnPiece(Menu.blackPlayer));
 		}
 		
-		//set up black's players
-		boardArray[7][0] = new Space(new RookPiece(Menu.blackPlayer));
-		boardArray[7][1] = new Space(new KnightPiece(Menu.blackPlayer));
-		boardArray[7][2] = new Space(new BishopPiece(Menu.blackPlayer));
-		boardArray[7][3] = new Space(new QueenPiece(Menu.blackPlayer));
-		boardArray[7][4] = new Space(new KingPiece(Menu.blackPlayer));
-		boardArray[7][5] = new Space(new BishopPiece(Menu.blackPlayer));
-		boardArray[7][6] = new Space(new KnightPiece(Menu.blackPlayer));
-		boardArray[7][7] = new Space(new RookPiece(Menu.blackPlayer));
+		//set up white's players
+		boardArray[7][0] = new Space(new RookPiece(Menu.whitePlayer));
+		boardArray[7][1] = new Space(new KnightPiece(Menu.whitePlayer));
+		boardArray[7][2] = new Space(new BishopPiece(Menu.whitePlayer));
+		boardArray[7][3] = new Space(new QueenPiece(Menu.whitePlayer));
+		boardArray[7][4] = new Space(new KingPiece(Menu.whitePlayer));
+		boardArray[7][5] = new Space(new BishopPiece(Menu.whitePlayer));
+		boardArray[7][6] = new Space(new KnightPiece(Menu.whitePlayer));
+		boardArray[7][7] = new Space(new RookPiece(Menu.whitePlayer));
 		for(int col = 0; col < COLS; col++) {
-			boardArray[6][col] = new Space(new PawnPiece(Menu.blackPlayer));
+			boardArray[6][col] = new Space(new PawnPiece(Menu.whitePlayer));
 		}
 		
 		//set up empty spaces
