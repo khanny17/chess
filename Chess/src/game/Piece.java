@@ -17,11 +17,6 @@ public abstract class Piece {
 	
 	public Piece(Player player) {
 		this.player = player;
-		try {
-			image = ImageIO.read(new File("src/images/king_black.jpg"));
-		} catch(IOException e) {
-			System.out.println("BITCH");
-		}
 	}
 	
 	public void setPlayer(Player p) {
