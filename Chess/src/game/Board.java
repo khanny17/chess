@@ -30,7 +30,7 @@ public class Board extends GridLayout {
 		}
 		
 		/**
-		 * Initializes a space with a piece
+		 * Initializes a space with a piece image in the middle
 		 */
 		public Space(Piece piece) {
 			this.piece = piece;
