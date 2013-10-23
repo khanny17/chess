@@ -3,6 +3,7 @@ package pieces;
 import game.Piece;
 import game.Player;
 import game.Menu;
+import game.Space;
 
 import java.awt.image.BufferedImage;
 
@@ -10,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PawnPiece extends Piece {
 	
@@ -42,5 +44,11 @@ public class PawnPiece extends Piece {
 	
 	public String toString() {
 		return "Pawn";
+	}
+
+	@Override
+	public ArrayList<Space> getMoves() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

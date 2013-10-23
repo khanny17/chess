@@ -1,5 +1,7 @@
 package game;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -33,6 +35,16 @@ public abstract class Piece {
 			return null;
 		}
 	}
+	
+	/**
+	 * Returns all legal moves for that piece, regardless of whether or not
+	 *  that move is blocked or on the board
+	 * @return A list of legal moves.
+	 */
+	public abstract ArrayList<Space> getMoves();
+	
+	
+	
 	
 	public void setPlayer(Player p) {
 		player = p;
