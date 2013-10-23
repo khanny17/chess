@@ -1,5 +1,6 @@
 package game;
 import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -20,13 +21,17 @@ public class Space extends JPanel {
 	 * The piece which is currently on the space.
 	 */
 	private Piece piece;
-
+	
+	private JLabel labelImage;
+	
 	/**
 	 * Initializes an empty space
 	 */
 	public Space() {
 		this.piece = null;
 		addMouseListener(Board.selector);
+		labelImage = new JLabel("",null,JLabel.CENTER);
+		add(labelImage);
 	}
 
 	/**
@@ -34,7 +39,8 @@ public class Space extends JPanel {
 	 */
 	public Space(Piece piece) {
 		this.piece = piece;
-		add(new JLabel("",this.piece.getImageIcon(),JLabel.CENTER));
+		labelImage = new JLabel("",this.piece.getImageIcon(),JLabel.CENTER);
+		add(labelImage);
 		addMouseListener(Board.selector);
 	}
 
@@ -64,5 +70,28 @@ public class Space extends JPanel {
 	 */
 	public void setPiece(Piece piece) {
 		this.piece = piece;
+	}
+		
+	/**
+	 * Prints the information about the space - its' coordinate
+	 *  value and its piece
+	 */
+	@Override
+	public String toString() {
+		if(piece == null) {
+			return "Coordinate: " + /*getcoordinate+ */ "\nPiece: NONE";
+		}
+		return "Coordinate: " + /*getCoordinate()+*/ "\n" + piece.toString();
+	}
+	
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if(piece != null) {
+			labelImage.setIcon(piece.getImageIcon());
+		} else {
+			labelImage.setIcon(null);
+		}
 	}
 }

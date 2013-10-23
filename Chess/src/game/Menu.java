@@ -46,6 +46,7 @@ public class Menu extends JFrame {
 				/*
 				 * If the user picks white, sets white to human and black to
 				 * computer, else vice versa
+				 * Why nested ternary? Because nested ternarys are cool!
 				 */
 				blackPlayer = (whitePlayer = (sideResponse == 1) ?
 					new HumanPlayer() : new ComputerPlayer())
@@ -64,10 +65,15 @@ public class Menu extends JFrame {
 		JButton twoPlayers = new JButton("2 Players");
 		twoPlayers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Initializes both players as human
+				blackPlayer = new HumanPlayer();
+				whitePlayer = new HumanPlayer();
+				
 				Menu.this.setVisible(false);
 				gameFrame = new GameFrame();
 				gameFrame.pack();
 				gameFrame.setVisible(true);
+				gameFrame.repaint();
 			}
 		});
 		

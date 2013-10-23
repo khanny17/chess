@@ -10,11 +10,11 @@ import javax.swing.JFrame;
 public class GameFrame extends JFrame {
 
 	/**
-	 *
+	 *	Default constructor for the main game window
 	 */
 	public GameFrame() {
 		setTitle("Chess");
-		getContentPane().setSize(8*64,8*64);
+		getContentPane().setSize(Board.ROWS*64,Board.COLS*64);
 		Board board = new Board();
 		setLayout(board);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
