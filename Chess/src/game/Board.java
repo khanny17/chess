@@ -1,9 +1,9 @@
 package game;
+
 import pieces.*;
 import java.awt.GridLayout;
 import java.awt.Color;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
+
 /**
  * This class defines the chess board on which the game is played.
  * It keeps track of the spaces with a two dimensional array.
@@ -15,29 +15,10 @@ import javax.swing.JLabel;
 public class Board extends GridLayout {
 	
 	/**
-	 * Private class used to show the spaces in the grid.
-	 * 
-	 * @author Kevin Hannigan
+	 * The listener used to control space selection throughout the game
 	 */
-	private class Space extends JPanel{
-		private Piece piece;
-		
-		/**
-		 * Initializes an empty space
-		 */
-		public Space() {
-			this.piece = null;
-		}
-		
-		/**
-		 * Initializes a space with a piece image in the middle
-		 */
-		public Space(Piece piece) {
-			this.piece = piece;
-			add(new JLabel("",this.piece.getImageIcon(),JLabel.CENTER));
-		}
-		
-	}
+	public static final SpaceClickListener selector = new SpaceClickListener();
+	
 	/**
 	 * The array used to represent the board. The board is defined such that
 	 *  (0,0) = H1, the top left hand corner for the player playing as white
@@ -94,13 +75,13 @@ public class Board extends GridLayout {
 		for(int row = 0; row < ROWS; row++) {
 			for(int col = 0; col < COLS; col++) {
 				if(row%2 == 0) {
-					if(col%2 == 0) {
+					if(col%2 == 1) {
 						boardArray[row][col].setBackground(Color.GRAY);
 					} else {
 						boardArray[row][col].setBackground(Color.WHITE);
 					}
 				} else {
-					if(col%2 == 1) {
+					if(col%2 == 0) {
 						boardArray[row][col].setBackground(Color.GRAY);
 					} else {
 						boardArray[row][col].setBackground(Color.WHITE);
@@ -133,9 +114,12 @@ public class Board extends GridLayout {
 	public int[] toXY(Coordinate c) {
 		return new int[] {c.x,c.y};
 	}
-
+	
+	//Returns the wrapped 2D Space array
 	public Space[][] getArray() {
 		return boardArray;
 	}
 	
 }
+
+
