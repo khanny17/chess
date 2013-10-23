@@ -40,4 +40,7 @@ public class KingPiece extends Piece {
 		setImage(image);
 	}
 	
+	public String toString() {
+		return "King";
+	}
 }

@@ -5,7 +5,9 @@ import game.Player;
 import game.Menu;
 
 import java.awt.image.BufferedImage;
+
 import javax.imageio.ImageIO;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -38,4 +40,7 @@ public class QueenPiece extends Piece {
 		setImage(image);
 	}
 	
+	public String toString() {
+		return "Queen";
+	}
 }

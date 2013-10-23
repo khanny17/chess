@@ -40,4 +40,7 @@ public class PawnPiece extends Piece {
 		setImage(image);
 	}
 	
+	public String toString() {
+		return "Pawn";
+	}
 }

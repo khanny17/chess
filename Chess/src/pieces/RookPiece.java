@@ -40,4 +40,7 @@ public class RookPiece extends Piece {
 		setImage(image);
 	}
 	
+	public String toString() {
+		return "Rook";
+	}
 }

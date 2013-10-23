@@ -49,4 +49,8 @@ public abstract class Piece {
 	public void setImage(BufferedImage image) {
 		this.image = image;
 	}
+	
+	public String toString() {
+		return "Piece";
+	}
 }

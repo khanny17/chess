@@ -40,4 +40,7 @@ public class BishopPiece extends Piece {
 		setImage(image);
 	}
 	
+	public String toString() {
+		return "Bishop";
+	}
 }
