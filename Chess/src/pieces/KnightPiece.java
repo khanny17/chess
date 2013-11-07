@@ -3,7 +3,6 @@ package pieces;
 import game.Piece;
 import game.Player;
 import game.Menu;
-import game.Space;
 
 import java.awt.image.BufferedImage;
 
@@ -11,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class KnightPiece extends Piece {
 	
@@ -43,12 +42,25 @@ public class KnightPiece extends Piece {
 	}
 	
 	public String toString() {
-		return "Knight";
+		String myplayer = (getPlayer() == Menu.whitePlayer) ? "White" : "Black";
+		return myplayer + " Knight";
 	}
 
+	/**
+	 * The Knight can move two spaces in one direction, then one space
+	 *  perpendicular (or one space in one direction, then two spaces
+	 *  perpendicular)
+	 * We signify this with angles (x*30) and radius one
+	 */
 	@Override
-	public ArrayList<Space> getMoves() {
-		// TODO Auto-generated method stub
-		return null;
+	protected void defineMoves() {
+		this.moveMap = new TreeMap<Integer,Integer>();
+		for(int dir = 0; dir < 360; dir += 30) {
+			if(dir%90 != 0) {
+				moveMap.put(dir, 1);
+			}
+		}
 	}
+	
+	
 }

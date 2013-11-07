@@ -3,7 +3,6 @@ package pieces;
 import game.Piece;
 import game.Player;
 import game.Menu;
-import game.Space;
 
 import java.awt.image.BufferedImage;
 
@@ -11,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class QueenPiece extends Piece {
 	
@@ -43,12 +42,18 @@ public class QueenPiece extends Piece {
 	}
 	
 	public String toString() {
-		return "Queen";
+		String myplayer = (getPlayer() == Menu.whitePlayer) ? "White" : "Black";
+		return myplayer + " Queen";
 	}
 
+	/**
+	 * The Queen can move in any direction (x*45) for any number of spaces
+	 */
 	@Override
-	public ArrayList<Space> getMoves() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	protected void defineMoves() {
+		moveMap = new TreeMap<Integer,Integer>();
+		for(int dir = 0; dir < 360; dir += 45) {
+			moveMap.put(dir, 8);
+		}
+	}	
 }

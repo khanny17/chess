@@ -21,7 +21,7 @@ public class SpaceClickListener extends MouseAdapter {
 		//get the space which was clicked and the piece on that space
 		Space newSpace = (Space)e.getSource();
 		Piece newPiece = newSpace.getPiece();
-		
+
 		//if nothing selected, just select the new space and return
 		if(currentSpace == null) {
 			//If the new space is empty don't select it
@@ -44,28 +44,36 @@ public class SpaceClickListener extends MouseAdapter {
 
 
 				//Test for legal move
-
-				//move current space piece to new space
-				currentSpace.setPiece(null);
-				newSpace.setPiece(currentPiece);
+				if(GameFrame.board.isLegalMove(currentSpace, newSpace)) {
+					System.out.println("Legal move!");
+					//move current space piece to new space
+					currentSpace.setPiece(null);
+					newSpace.setPiece(currentPiece);
+				} else {
+					System.out.println("illegal move!");
+				}
 
 
 
 			} else { //If the space clicked on is occupied...
 
 
-				//Test for legal move
-
-				//move current space piece to new space
-				currentSpace.setPiece(null);
-				newSpace.setPiece(currentPiece);
-
-
-
+				//Test for legal capture
+				Piece captured =
+						GameFrame.board.isLegalCapture(currentSpace, newSpace);
+				if(captured != null) {
+					System.out.println("Legal capture!");
+					//add captured piece to array
+					
+					//move current space piece to new space
+					currentSpace.setPiece(null);
+					newSpace.setPiece(currentPiece);
+				} else {
+					System.out.println("illegal capture!");
+				}
 
 			}
 		}
-
 
 		/*
 		 * Update graphics

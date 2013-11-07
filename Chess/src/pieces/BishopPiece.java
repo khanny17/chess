@@ -3,7 +3,6 @@ package pieces;
 import game.Piece;
 import game.Player;
 import game.Menu;
-import game.Space;
 
 import java.awt.image.BufferedImage;
 
@@ -11,7 +10,8 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
+import java.util.TreeMap;
 
 public class BishopPiece extends Piece {
 	
@@ -43,12 +43,21 @@ public class BishopPiece extends Piece {
 	}
 	
 	public String toString() {
-		return "Bishop";
+		String myplayer = (getPlayer() == Menu.whitePlayer) ? "White" : "Black";
+		return myplayer + " Bishop";
+	}
+	
+	/**
+	 * The bishop can move diagonally in any direction as far as desired
+	 */
+	@Override
+	protected void defineMoves() {
+		this.moveMap = new TreeMap<Integer,Integer>();
+		moveMap.put(45, 8);
+		moveMap.put(135, 8);
+		moveMap.put(225, 8);
+		moveMap.put(315, 8);
 	}
 
-	@Override
-	public ArrayList<Space> getMoves() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

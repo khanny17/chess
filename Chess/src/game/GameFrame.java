@@ -9,7 +9,10 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class GameFrame extends JFrame {
 
-	Board board;
+	/**
+	 * The game board played upon
+	 */
+	public static Board board;
 	
 	/**
 	 *	Default constructor for the main game window

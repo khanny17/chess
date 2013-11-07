@@ -3,7 +3,6 @@ package pieces;
 import game.Piece;
 import game.Player;
 import game.Menu;
-import game.Space;
 
 import java.awt.image.BufferedImage;
 
@@ -11,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class KingPiece extends Piece {
 	/**
@@ -47,17 +46,30 @@ public class KingPiece extends Piece {
 		setImage(image);
 	}
 	
+	/**
+	 * returns value of hasMoved
+	 * @return true of the piece has moved
+	 */
 	public boolean didMove() {
 		return hasMoved;
 	}
 	
 	public String toString() {
-		return "King";
+		String myplayer = (getPlayer() == Menu.whitePlayer) ? "White" : "Black";
+		return myplayer + " King";
+	}
+	
+	/**
+	 * The king can move one space in any direction (x*45)
+	 * It can also castle if it has not moved yet and the rook in question
+	 *  has not moved yet. This must be handled further upstream
+	 */
+	@Override
+	protected void defineMoves() {
+		this.moveMap = new TreeMap<Integer,Integer>();
+		for(int dir = 0; dir < 360; dir+=45) {
+			moveMap.put(dir, 1);
+		}
 	}
 
-	@Override
-	public ArrayList<Space> getMoves() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

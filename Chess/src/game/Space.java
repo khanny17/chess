@@ -1,4 +1,5 @@
 package game;
+
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -21,7 +22,9 @@ public class Space extends JPanel {
 	 * The piece which is currently on the space.
 	 */
 	private Piece piece;
-	
+	/**
+	 * The image to represent the piece on the space
+	 */
 	private JLabel labelImage;
 	
 	/**
@@ -94,4 +97,5 @@ public class Space extends JPanel {
 			labelImage.setIcon(null);
 		}
 	}
+	
 }
