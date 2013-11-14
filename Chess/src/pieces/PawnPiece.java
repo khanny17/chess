@@ -30,9 +30,7 @@ public class PawnPiece extends Piece {
 	public PawnPiece(Player player) {
 		super(player);
 
-		//Set up the hash map to define how the pawn moves/captures
-		this.defineMoves();
-		this.defineCaptures();
+		
 
 		//Set image to black or white pawn depending on the player
 		if(player == Menu.blackPlayer) {

@@ -54,6 +54,10 @@ public class KingPiece extends Piece {
 		return hasMoved;
 	}
 	
+	public void moved() {
+		hasMoved = true;
+	}
+	
 	public String toString() {
 		String myplayer = (getPlayer() == Menu.whitePlayer) ? "White" : "Black";
 		return myplayer + " King";

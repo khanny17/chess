@@ -14,7 +14,7 @@ public abstract class Piece {
 
 	private Player player;
 	private BufferedImage image;
-	
+
 	/**
 	 * This hash map keeps key value pairs for the angle and distance at which
 	 *  the piece may travel
@@ -22,7 +22,7 @@ public abstract class Piece {
 	 * Key = degree; Value = radius
 	 */
 	protected HashMap<Integer,Integer> moveMap;
-	
+
 	/**
 	 * This hash map keeps key value pairs for the angle and distance at which
 	 *  the piece may travel to capture
@@ -30,7 +30,7 @@ public abstract class Piece {
 	 * Key = degree; Value = radius
 	 */
 	protected HashMap<Integer,Integer> captureMap;
-	
+
 	/**
 	 * Constructs a piece with the passed player
 	 * 
@@ -38,8 +38,11 @@ public abstract class Piece {
 	 */
 	public Piece(Player player) {
 		this.player = player;
+		//Set up the hash map to define how the pawn moves/captures
+		this.defineMoves();
+		this.defineCaptures();
 	}
-	
+
 	/**
 	 * Returns the BufferedImage as an ImageIcon
 	 * @return the new ImageIcon
@@ -51,7 +54,7 @@ public abstract class Piece {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Returns legal moves for the piece
 	 * Describes HOW the piece moves, doesn't check the actual spaces
@@ -60,7 +63,7 @@ public abstract class Piece {
 	public HashMap<Integer,Integer> getMoves() {
 		return moveMap;
 	}
-	
+
 	/**
 	 * Returns legal captures for the piece
 	 * Describes HOW the piece moves, doesn't check the actual spaces
@@ -69,7 +72,7 @@ public abstract class Piece {
 	public HashMap<Integer,Integer> getCaptures() {
 		return captureMap;
 	}
-	
+
 	/**
 	 * Sets up "moveMap"
 	 * Called by constructor.
@@ -81,7 +84,7 @@ public abstract class Piece {
 	 *  45, 135, 225, and 315 degrees
 	 */
 	protected abstract void defineMoves();
-	
+
 	/**
 	 * Sets up "captureMap"
 	 * Called by constructor.
@@ -93,23 +96,23 @@ public abstract class Piece {
 	 *  45, 135, 225, and 315 degrees
 	 */
 	protected abstract void defineCaptures();
-	
+
 	public void setPlayer(Player p) {
 		player = p;
 	}
-	
+
 	public Player getPlayer() {
 		return player;
 	}
-	
+
 	public BufferedImage getImage() {
 		return image;
 	}
-	
+
 	public void setImage(BufferedImage image) {
 		this.image = image;
 	}
-	
+
 	public String toString() {
 		return "Piece";
 	}

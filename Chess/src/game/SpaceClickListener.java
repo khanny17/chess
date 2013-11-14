@@ -2,6 +2,8 @@ package game;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import pieces.*;
+
 /**
  * Listener class used to listen for when the user clicks a space
  * @author Kevin Hannigan
@@ -49,6 +51,13 @@ public class SpaceClickListener extends MouseAdapter {
 					//move current space piece to new space
 					currentSpace.setPiece(null);
 					newSpace.setPiece(currentPiece);
+					if(currentPiece instanceof PawnPiece) {
+						((PawnPiece) currentPiece).moved();
+					} else if(currentPiece instanceof PawnPiece) {
+						((RookPiece) currentPiece).moved();
+					} else if(currentPiece instanceof PawnPiece) {
+						((KingPiece) currentPiece).moved();
+					}
 				
 				} else {
 					System.out.println("illegal move!");
@@ -69,6 +78,16 @@ public class SpaceClickListener extends MouseAdapter {
 					//move current space piece to new space
 					currentSpace.setPiece(null);
 					newSpace.setPiece(currentPiece);
+					
+					if(currentPiece instanceof PawnPiece) {
+						((PawnPiece) currentPiece).moved();
+					} else if(currentPiece instanceof PawnPiece) {
+						((RookPiece) currentPiece).moved();
+					} else if(currentPiece instanceof PawnPiece) {
+						((KingPiece) currentPiece).moved();
+					}
+					
+					
 				} else {
 					System.out.println("illegal capture!");
 				}

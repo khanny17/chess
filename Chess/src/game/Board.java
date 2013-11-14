@@ -132,9 +132,9 @@ public class Board extends GridLayout {
 	 * @param y the y value
 	 * @return the space object
 	 */
-	public Space getSpaceAtXY(int x, int y) {
-		return isOnBoard(x, y) ?
-				boardArray[x][y] : null;
+	public Space getSpaceAtXY(int y, int x) {
+		return isOnBoard(y, x) ?
+				boardArray[y][x] : null;
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class Board extends GridLayout {
 	 * Tests if the x y coordinates signify a space which is on the board
 	 * @return true if the x/y pair is on the board
 	 */
-	public boolean isOnBoard(int x, int y) {
+	public boolean isOnBoard(int y, int x) {
 		return (x < ROWS && x >= 0 && y < COLS && y >= 0);
 	}
 
@@ -224,41 +224,44 @@ public class Board extends GridLayout {
 	 * @return the space at that point
 	 */
 	public Space getSpaceFromMove(int startY, int startX,int dir, int radius) {
+		
 		switch(dir) {
-		case 0:		return boardArray[startY][startX+radius];
+		case 0:		return getSpaceAtXY(startY,startX+radius);		
 
-		case 30:	return boardArray[startY-1][startX+2];
+		case 30:	return getSpaceAtXY(startY-1,startX+2);
 
-		case 45:	return boardArray[startY-radius][startX+radius];
+		case 45:	return getSpaceAtXY(startY-radius,startX+radius);
 
-		case 60:	return boardArray[startY-2][startX+1];
 
-		case 90:	return boardArray[startY-radius][startX];
+		case 60:	return getSpaceAtXY(startY-2,startX+1);
 
-		case 120:	return boardArray[startY+2][startX];
+		case 90:	return getSpaceAtXY(startY-radius,startX);
 
-		case 135:	return boardArray[startY-radius][startX-radius];
+		case 120:	return getSpaceAtXY(startY+2,startX-1);
 
-		case 150:	return boardArray[startY-1][startX-2];
 
-		case 180:	return boardArray[startY][startX-radius];
+		case 135:	return getSpaceAtXY(startY-radius,startX-radius);
 
-		case 210:	return boardArray[startY+1][startX-2];
+		case 150:	return getSpaceAtXY(startY-1,startX-2);
 
-		case 225:	return boardArray[startY+radius][startX-radius];
+		case 180:	return getSpaceAtXY(startY,startX-radius);
 
-		case 240:	return boardArray[startY+2][startX-1];
+		case 210:	return getSpaceAtXY(startY+1,startX-2);
 
-		case 270:	return boardArray[startY+radius][startX];
+		case 225:	return getSpaceAtXY(startY+radius,startX-radius);
 
-		case 300:	return boardArray[startY+2][startX+1];
+		case 240:	return getSpaceAtXY(startY+2,startX-1);
 
-		case 315:	return boardArray[startY+radius][startX+radius];
+		case 270:	return getSpaceAtXY(startY+radius,startX);
 
-		case 330:	return boardArray[startY+1][startX+2];
+		case 300:	return getSpaceAtXY(startY+2,startX+1);
+
+		case 315:	return getSpaceAtXY(startY+radius,startX+radius);
+
+		case 330:	return getSpaceAtXY(startY+1,startX+2);
 
 		default: 	System.err.println("Invalid Direction!");
-		return null;
+					return null;
 		}
 	}
 
@@ -289,6 +292,7 @@ public class Board extends GridLayout {
 			 *  that was clicked is within moving range
 			 */
 			while(radius > 0) {
+
 				possibleSpace = getSpaceFromMove(fromY,fromX,dir,radius);
 				if(possibleSpace != null) {
 					if(possibleSpace.equals(to)) {
@@ -309,7 +313,9 @@ public class Board extends GridLayout {
 						return true;
 					} 
 				}
+
 				radius--;
+
 			}
 		}
 		return false;

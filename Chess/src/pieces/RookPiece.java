@@ -60,6 +60,10 @@ public class RookPiece extends Piece {
 		return hasMoved;
 	}
 	
+	public void moved() {
+		hasMoved = true;
+	}
+	
 	/**
 	 * The Rook can move any number of spaces in any direction along an axis
 	 * 	(x*90)
