@@ -30,8 +30,9 @@ public class PawnPiece extends Piece {
 	public PawnPiece(Player player) {
 		super(player);
 
-		//Set up the tree map to define how the pawn moves
+		//Set up the hash map to define how the pawn moves/captures
 		this.defineMoves();
+		this.defineCaptures();
 
 		//Set image to black or white pawn depending on the player
 		if(player == Menu.blackPlayer) {
@@ -91,7 +92,7 @@ public class PawnPiece extends Piece {
 			}
 		} else if(getPlayer().equals(Menu.blackPlayer)) {
 			if(!hasMoved) {
-				moveMap.put(270, 1);
+				moveMap.put(270, 2);
 			} else {
 				moveMap.put(270, 1);
 			}
@@ -105,7 +106,13 @@ public class PawnPiece extends Piece {
 	 */
 	@Override
 	protected void defineCaptures() {
-		captureMap.put(45,1);
-		captureMap.put(135,1);
+		this.captureMap = new HashMap<Integer,Integer>();
+		if(getPlayer().equals(Menu.whitePlayer)) {
+			captureMap.put(45,1);
+			captureMap.put(135,1);
+		} else if(getPlayer().equals(Menu.blackPlayer)) {
+			captureMap.put(225,1);
+			captureMap.put(315,1);
+		}
 	}
 }

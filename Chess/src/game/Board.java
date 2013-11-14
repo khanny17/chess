@@ -170,13 +170,11 @@ public class Board extends GridLayout {
 	 */
 	public boolean isLegalMove(Space from, Space to) {
 		Piece movingPiece = from.getPiece();
-		System.out.println("moving piece: " + movingPiece);
 		Piece otherPiece = to.getPiece();
-		System.out.println("other piece: " + otherPiece);
+
+		//If the other space isn't empty, its a CAPTURE not a MOVE so its false
 		if(otherPiece != null) {
-			if(movingPiece.getPlayer().equals(otherPiece.getPlayer())) {
-				return false;
-			}
+			return false;
 		}
 
 		int[] xy = getXYofSpace(from);
@@ -186,48 +184,7 @@ public class Board extends GridLayout {
 		//get the defined possible moves for the from piece
 		HashMap<Integer,Integer> moves = movingPiece.getMoves();
 
-		//Go through each possible move and test to see if "to" is one of them
-		Space possibleSpace;
-		Iterator<Entry<Integer,Integer>> entries = moves.entrySet().iterator();
-		while(entries.hasNext()) {
-			Entry<Integer,Integer> entry = (Entry<Integer, Integer>) entries.next();
-			int dir = (int) entry.getKey();
-			int radius = (int) entry.getValue();
-			System.out.println("dir: " + dir + "rad: " + radius);
-
-			
-			/**
-			 * We loop backwards from the maximum radius to see if the space
-			 *  that was clicked is within moving range
-			 */
-			while(radius > 0) {
-				possibleSpace = getSpaceFromMove(fromY,fromX,dir,radius);
-				if(possibleSpace != null) {
-					System.out.println("the space is not null");
-					System.out.println(this.getXYofSpace(possibleSpace)[0]);
-					if(possibleSpace.equals(to)) {
-						/*
-						 * "to" is a possible space, but we have to check if it is
-						 *  blocked along the way
-						 */
-						radius--;
-						while(radius > 0) {
-							possibleSpace = getSpaceFromMove(fromY,fromX,dir,radius);
-							if(possibleSpace.getPiece() != null) {
-								return false;
-							}
-
-							radius--;
-						}
-						//thus, if it is not blocked and the move is legal,
-						return true;
-					} 
-				}
-				radius--;
-			}
-		}
-
-		return false;
+		return this.spaceIsInMap(moves, fromX, fromY, to);
 
 	}
 
@@ -238,7 +195,23 @@ public class Board extends GridLayout {
 	 * @return true if it is a legal capture
 	 */
 	public Piece isLegalCapture(Space from, Space to) {
-		return null;
+		//If its the same player just return null. Otherwise
+		if(to.getPiece().getPlayer().equals(from.getPiece().getPlayer())) {
+			return null;
+		} else {
+			int[] xy = getXYofSpace(from);
+			int fromX = xy[0];
+			int fromY = xy[1];
+
+			//get the defined possible moves for the from piece
+			HashMap<Integer,Integer> moves = from.getPiece().getCaptures();
+
+			if(this.spaceIsInMap(moves, fromX, fromY, to)) {
+				return to.getPiece();
+			} else {
+				return null;
+			}
+		}
 	}
 
 
@@ -287,6 +260,59 @@ public class Board extends GridLayout {
 		default: 	System.err.println("Invalid Direction!");
 		return null;
 		}
+	}
+
+	/**
+	 * Private method to determine if the given Space (to) is able to be
+	 *  reached according to the moves defined in (moves)
+	 * @param moves The dir/radius map defined by the piece. Could be the
+	 * 				 capture map or the move map
+	 * @param fromX The X coordinate we are starting from
+	 * @param fromY The Y coordinate we are starting from
+	 * @param to The space we are searching for
+	 * @return true if the space is able to be reached according to the map
+	 */
+	private boolean spaceIsInMap(HashMap<Integer, Integer> moves, int fromX, int fromY, Space to) {
+
+		//Go through each possible move and test to see if "to" is one of them
+		Space possibleSpace;
+		Iterator<Entry<Integer,Integer>> entries = moves.entrySet().iterator();
+		while(entries.hasNext()) {
+			Entry<Integer,Integer> entry = (Entry<Integer, Integer>) entries.next();
+			int dir = (int) entry.getKey();
+			int radius = (int) entry.getValue();
+			System.out.println("dir: " + dir + "rad: " + radius);
+
+
+			/**
+			 * We loop backwards from the maximum radius to see if the space
+			 *  that was clicked is within moving range
+			 */
+			while(radius > 0) {
+				possibleSpace = getSpaceFromMove(fromY,fromX,dir,radius);
+				if(possibleSpace != null) {
+					if(possibleSpace.equals(to)) {
+						/*
+						 * "to" is a possible space, but we have to check if it is
+						 *  blocked along the way
+						 */
+						radius--;
+						while(radius > 0) {
+							possibleSpace = getSpaceFromMove(fromY,fromX,dir,radius);
+							if(possibleSpace.getPiece() != null) {
+								return false;
+							}
+
+							radius--;
+						}
+						//thus, if it is not blocked and the move is legal,
+						return true;
+					} 
+				}
+				radius--;
+			}
+		}
+		return false;
 	}
 }
 
