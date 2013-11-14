@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class KnightPiece extends Piece {
 	
@@ -54,12 +54,18 @@ public class KnightPiece extends Piece {
 	 */
 	@Override
 	protected void defineMoves() {
-		this.moveMap = new TreeMap<Integer,Integer>();
+		this.moveMap = new HashMap<Integer,Integer>();
 		for(int dir = 0; dir < 360; dir += 30) {
 			if(dir%90 != 0) {
 				moveMap.put(dir, 1);
 			}
 		}
+	}
+
+	@Override
+	protected void defineCaptures() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -4,8 +4,8 @@ import pieces.*;
 
 import java.awt.GridLayout;
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 import java.util.Iterator;
 
 /**
@@ -184,7 +184,7 @@ public class Board extends GridLayout {
 		int fromY = xy[1];
 
 		//get the defined possible moves for the from piece
-		TreeMap<Integer,Integer> moves = movingPiece.getMoves();
+		HashMap<Integer,Integer> moves = movingPiece.getMoves();
 
 		//Go through each possible move and test to see if "to" is one of them
 		Space possibleSpace;
@@ -194,119 +194,53 @@ public class Board extends GridLayout {
 			int dir = (int) entry.getKey();
 			int radius = (int) entry.getValue();
 			System.out.println("dir: " + dir + "rad: " + radius);
-			possibleSpace = getSpaceFromMove(fromY,fromX,dir,radius);
-			if(possibleSpace != null) {
-				System.out.println("the space is not null");
-				System.out.println(this.getXYofSpace(possibleSpace)[0]);
-				if(possibleSpace.equals(to)) {
-					System.out.println("the space is a possible move");
-					/*
-					 * "to" is a possible space, but we have to check if it is
-					 *  blocked along the way
-					 */
-					radius--;
-					while(radius > 0) {
-						possibleSpace = getSpaceFromMove(fromY,fromX,dir,radius);
-						if(possibleSpace.getPiece() != null) {
-							return false;
-						}
 
+			
+			/**
+			 * We loop backwards from the maximum radius to see if the space
+			 *  that was clicked is within moving range
+			 */
+			while(radius > 0) {
+				possibleSpace = getSpaceFromMove(fromY,fromX,dir,radius);
+				if(possibleSpace != null) {
+					System.out.println("the space is not null");
+					System.out.println(this.getXYofSpace(possibleSpace)[0]);
+					if(possibleSpace.equals(to)) {
+						/*
+						 * "to" is a possible space, but we have to check if it is
+						 *  blocked along the way
+						 */
 						radius--;
-					}
-					//thus, if it is not blocked and the move is legal,
-					return true;
+						while(radius > 0) {
+							possibleSpace = getSpaceFromMove(fromY,fromX,dir,radius);
+							if(possibleSpace.getPiece() != null) {
+								return false;
+							}
+
+							radius--;
+						}
+						//thus, if it is not blocked and the move is legal,
+						return true;
+					} 
 				}
+				radius--;
 			}
 		}
 
-
-		//If "to" wasn't in the possible moves, check the special cases.
-
-		//Test the Pawn's diagonal captures
-		if(movingPiece instanceof PawnPiece) {
-			return testPawnCapture(from,to,fromX,fromY);
-		}
-		//Test castling
 		return false;
 
 	}
 
 	/**
-	 * Tests for a legal capturing move. Calls "isLegalMove," but then
-	 *  returns the piece it is capturing instead of a boolean value
-	 * @param from
-	 * @param to
-	 * @return the captured piece (or null if not a valid move)
+	 * Tests if it is legal for the piece on "from" to capture the piece on "to"
+	 * @param from the space where the piece is moving from
+	 * @param to the space the piece is moving to
+	 * @return true if it is a legal capture
 	 */
 	public Piece isLegalCapture(Space from, Space to) {
-		if(isLegalMove(from,to)) {
-			return to.getPiece();
-		} else {
-			return null;
-		}
+		return null;
 	}
 
-	/**
-	 * Private method called by the isLegalMove method used to check for 
-	 *  the pawn's capturing move
-	 * @param from the space the piece is moving from
-	 * @param to the space the piece is moving to
-	 * @param fromX the x value of the space
-	 * @param fromY the y value of the space
-	 * @return true if the move from "from" to "to" is a legal capturing move
-	 */
-	private boolean testPawnCapture(Space from, Space to,int fromX, int fromY) {
-		Piece movingPiece = from.getPiece();
-		Piece otherPiece = to.getPiece();
-		Space posSpace;
-
-		if(movingPiece.getPlayer() == Menu.whitePlayer) {
-			posSpace = getSpaceFromMove(fromX,fromY,45,1);
-			if(posSpace != null) {
-				if(posSpace.equals(to)) {
-					if(otherPiece != null) {
-						if(otherPiece.getPlayer() == Menu.blackPlayer){
-							return true;
-						}
-					}
-				}
-			}
-
-			posSpace = getSpaceFromMove(fromX,fromY,135,1);
-			if(posSpace != null) {
-				if(posSpace.equals(to)) {
-					if(otherPiece != null) {
-						if(otherPiece.getPlayer() == Menu.blackPlayer){
-							return true;
-						}
-					}
-				}
-			}
-		} else if(movingPiece.getPlayer() == Menu.blackPlayer) {
-			posSpace = getSpaceFromMove(fromX,fromY,225,1);
-			if(posSpace != null) {
-				if(posSpace.equals(to)) {
-					if(otherPiece != null) {
-						if(otherPiece.getPlayer() == Menu.whitePlayer){
-							return true;
-						}
-					}
-				}
-			}
-
-			posSpace = getSpaceFromMove(fromX,fromY,315,1);
-			if(posSpace != null) {
-				if(posSpace.equals(to)) {
-					if(otherPiece != null) {
-						if(otherPiece.getPlayer() == Menu.whitePlayer){
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
 
 	/**
 	 * Returns the space based on the direction and radius

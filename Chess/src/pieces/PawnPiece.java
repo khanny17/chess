@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class PawnPiece extends Piece {
 
@@ -69,7 +69,7 @@ public class PawnPiece extends Piece {
 	 *  defineMoves again.
 	 */
 	public void moved() {
-		hasMoved = true;
+		this.hasMoved = true;
 		this.defineMoves();
 	}
 
@@ -78,23 +78,34 @@ public class PawnPiece extends Piece {
 	 *  225, 270, and 315 degrees if it is black. It has radius 2 for 90/270
 	 *  degrees if it has not moved yet, and 1 for any other case.
 	 *  
-	 *  Does not include diagonal capture move. The board class accounts for
-	 *   this
+	 *  Does not include diagonal capture move.
 	 */
 	@Override
 	protected void defineMoves() {
-		this.moveMap = new TreeMap<Integer,Integer>();
+		this.moveMap = new HashMap<Integer,Integer>();
 		if(getPlayer().equals(Menu.whitePlayer)) {
 			if(!hasMoved) {
 				moveMap.put(90, 2);
+			} else {
+				moveMap.put(90, 1);
 			}
-			moveMap.put(90, 1);
 		} else if(getPlayer().equals(Menu.blackPlayer)) {
 			if(!hasMoved) {
-				moveMap.put(270, 2);
+				moveMap.put(270, 1);
+			} else {
+				moveMap.put(270, 1);
 			}
-			moveMap.put(270, 1);
 
 		}
+	}
+
+	/**
+	 * The pawn can capture diagonally in either direction forward, radius of one
+	 * (45,1) & (135,1)
+	 */
+	@Override
+	protected void defineCaptures() {
+		captureMap.put(45,1);
+		captureMap.put(135,1);
 	}
 }

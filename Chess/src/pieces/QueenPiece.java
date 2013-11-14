@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class QueenPiece extends Piece {
 	
@@ -51,9 +51,15 @@ public class QueenPiece extends Piece {
 	 */
 	@Override
 	protected void defineMoves() {
-		moveMap = new TreeMap<Integer,Integer>();
+		moveMap = new HashMap<Integer,Integer>();
 		for(int dir = 0; dir < 360; dir += 45) {
 			moveMap.put(dir, 8);
 		}
+	}
+
+	@Override
+	protected void defineCaptures() {
+		// TODO Auto-generated method stub
+		
 	}	
 }

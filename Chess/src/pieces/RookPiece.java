@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class RookPiece extends Piece {
 	
@@ -66,11 +66,17 @@ public class RookPiece extends Piece {
 	 */
 	@Override
 	protected void defineMoves() {
-		this.moveMap = new TreeMap<Integer,Integer>();
+		this.moveMap = new HashMap<Integer,Integer>();
 		moveMap.put(0,8);
 		moveMap.put(90, 8);
 		moveMap.put(180, 8);
 		moveMap.put(270, 8);
+	}
+
+	@Override
+	protected void defineCaptures() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

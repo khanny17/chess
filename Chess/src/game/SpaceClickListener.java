@@ -49,6 +49,7 @@ public class SpaceClickListener extends MouseAdapter {
 					//move current space piece to new space
 					currentSpace.setPiece(null);
 					newSpace.setPiece(currentPiece);
+				
 				} else {
 					System.out.println("illegal move!");
 				}

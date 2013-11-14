@@ -10,8 +10,7 @@ import javax.imageio.ImageIO;
 
 import java.io.File;
 import java.io.IOException;
-
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class BishopPiece extends Piece {
 	
@@ -52,11 +51,17 @@ public class BishopPiece extends Piece {
 	 */
 	@Override
 	protected void defineMoves() {
-		this.moveMap = new TreeMap<Integer,Integer>();
+		this.moveMap = new HashMap<Integer,Integer>();
 		moveMap.put(45, 8);
 		moveMap.put(135, 8);
 		moveMap.put(225, 8);
 		moveMap.put(315, 8);
+	}
+
+	@Override
+	protected void defineCaptures() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
