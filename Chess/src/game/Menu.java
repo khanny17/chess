@@ -6,10 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 
-//MAKE IT USE VOICE RECOGNITION KNIGHT TO E5
-
-//remember to incorporate castling and the special pawn capture rule
-
 /**
  * The menu where the user can select the number of players, the difficulty,
  *  and other options.
