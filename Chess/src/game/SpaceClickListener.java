@@ -57,7 +57,6 @@ public class SpaceClickListener extends MouseAdapter {
 
 				//Test for legal move
 				if(GameFrame.board.isLegalMove(currentSpace, newSpace)) {
-					System.out.println("Legal move!");
 					//move current space piece to new space
 					currentSpace.setPiece(null);
 					newSpace.setPiece(currentPiece);
@@ -70,7 +69,7 @@ public class SpaceClickListener extends MouseAdapter {
 					}
 				
 				} else {
-					System.out.println("illegal move!");
+					//System.err.println("illegal move!");
 				}
 
 				//flip player's turns
@@ -83,7 +82,6 @@ public class SpaceClickListener extends MouseAdapter {
 				Piece captured =
 						GameFrame.board.isLegalCapture(currentSpace, newSpace);
 				if(captured != null) {
-					System.out.println("Legal capture!");
 					//add captured piece to array
 					
 					//move current space piece to new space
@@ -102,7 +100,7 @@ public class SpaceClickListener extends MouseAdapter {
 					Game.curPlayer = !Game.curPlayer;
 					
 				} else {
-					System.out.println("illegal capture!");
+					//System.err.println("illegal capture!");
 				}
 
 			}

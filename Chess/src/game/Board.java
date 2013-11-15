@@ -282,8 +282,6 @@ public class Board extends GridLayout {
 			Entry<Integer,Integer> entry = (Entry<Integer, Integer>) entries.next();
 			int dir = (int) entry.getKey();
 			int radius = (int) entry.getValue();
-			System.out.println("dir: " + dir + "rad: " + radius);
-
 
 			/**
 			 * We loop backwards from the maximum radius to see if the space
