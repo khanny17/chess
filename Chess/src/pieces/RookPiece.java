@@ -3,7 +3,6 @@ package pieces;
 import game.Game;
 import game.Piece;
 import game.Player;
-import game.Menu;
 
 import java.awt.image.BufferedImage;
 
