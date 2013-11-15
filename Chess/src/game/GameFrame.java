@@ -1,5 +1,7 @@
 package game;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 
 /**
  * The GUI window for the game.
@@ -24,8 +26,14 @@ public class GameFrame extends JFrame {
 		setLayout(board);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		//set up menubar
+		JMenuBar menuBar = new JMenuBar();
+		JMenu view = new JMenu("view");
+		menuBar.add(view);
+		this.setJMenuBar(menuBar);
+		
 		setResizable(false);
-		//If you want to change it to be resizeable, try component listener
+		//If you want to change it to be resizable, try component listener
 		
 		//Add the spaces to the frame
 		for(int row = 0; row < Board.ROWS; row++) {

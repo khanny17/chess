@@ -1,5 +1,6 @@
 package pieces;
 
+import game.Game;
 import game.Piece;
 import game.Player;
 import game.Menu;
@@ -24,13 +25,13 @@ public class BishopPiece extends Piece {
 	public BishopPiece(Player player) {
 		super(player);
 		
-		if(player == Menu.blackPlayer) {
+		if(player == Game.blackPlayer) {
 			try {                
 				image = ImageIO.read(new File("src/images/bishop_black.png"));
 			} catch (IOException ex) {
 				System.out.println("File Not Found!");
 			}
-		} else if(player.equals(Menu.whitePlayer)) {
+		} else if(player.equals(Game.whitePlayer)) {
 			try {                
 				image = ImageIO.read(new File("src/images/bishop_white.png"));
 			} catch (IOException ex) {
@@ -42,7 +43,7 @@ public class BishopPiece extends Piece {
 	}
 	
 	public String toString() {
-		String myplayer = (getPlayer() == Menu.whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer() == Game.whitePlayer) ? "White" : "Black";
 		return myplayer + " Bishop";
 	}
 	
@@ -60,8 +61,11 @@ public class BishopPiece extends Piece {
 
 	@Override
 	protected void defineCaptures() {
-		// TODO Auto-generated method stub
-		
+		this.captureMap = new HashMap<Integer,Integer>();
+		captureMap.put(45, 8);
+		captureMap.put(135, 8);
+		captureMap.put(225, 8);
+		captureMap.put(315, 8);
 	}
 
 	

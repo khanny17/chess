@@ -1,5 +1,6 @@
 package pieces;
 
+import game.Game;
 import game.Piece;
 import game.Player;
 import game.Menu;
@@ -30,13 +31,13 @@ public class RookPiece extends Piece {
 	public RookPiece(Player player) {
 		super(player);
 		
-		if(player == Menu.blackPlayer) {
+		if(player == Game.blackPlayer) {
 			try {                
 				image = ImageIO.read(new File("src/images/rook_black.png"));
 			} catch (IOException ex) {
 				System.out.println("File Not Found!");
 			}
-		} else if(player.equals(Menu.whitePlayer)) {
+		} else if(player.equals(Game.whitePlayer)) {
 			try {                
 				image = ImageIO.read(new File("src/images/rook_white.png"));
 			} catch (IOException ex) {
@@ -48,7 +49,7 @@ public class RookPiece extends Piece {
 	}
 	
 	public String toString() {
-		String myplayer = (getPlayer() == Menu.whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer() == Game.whitePlayer) ? "White" : "Black";
 		return myplayer + " Rook";
 	}
 	
@@ -79,8 +80,11 @@ public class RookPiece extends Piece {
 
 	@Override
 	protected void defineCaptures() {
-		// TODO Auto-generated method stub
-		
+		this.captureMap = new HashMap<Integer,Integer>();
+		captureMap.put(0,8);
+		captureMap.put(90, 8);
+		captureMap.put(180, 8);
+		captureMap.put(270, 8);
 	}
 
 	

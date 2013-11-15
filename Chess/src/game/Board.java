@@ -45,29 +45,29 @@ public class Board extends GridLayout {
 		boardArray = new Space[ROWS][COLS];
 
 		//set up black's players
-		boardArray[0][0] = new Space(new RookPiece(Menu.blackPlayer));
-		boardArray[0][1] = new Space(new KnightPiece(Menu.blackPlayer));
-		boardArray[0][2] = new Space(new BishopPiece(Menu.blackPlayer));
-		boardArray[0][3] = new Space(new QueenPiece(Menu.blackPlayer));
-		boardArray[0][4] = new Space(new KingPiece(Menu.blackPlayer));
-		boardArray[0][5] = new Space(new BishopPiece(Menu.blackPlayer));
-		boardArray[0][6] = new Space(new KnightPiece(Menu.blackPlayer));
-		boardArray[0][7] = new Space(new RookPiece(Menu.blackPlayer));
+		boardArray[0][0] = new Space(new RookPiece(Game.blackPlayer));
+		boardArray[0][1] = new Space(new KnightPiece(Game.blackPlayer));
+		boardArray[0][2] = new Space(new BishopPiece(Game.blackPlayer));
+		boardArray[0][3] = new Space(new QueenPiece(Game.blackPlayer));
+		boardArray[0][4] = new Space(new KingPiece(Game.blackPlayer));
+		boardArray[0][5] = new Space(new BishopPiece(Game.blackPlayer));
+		boardArray[0][6] = new Space(new KnightPiece(Game.blackPlayer));
+		boardArray[0][7] = new Space(new RookPiece(Game.blackPlayer));
 		for(int col = 0; col < COLS; col++) {
-			boardArray[1][col] = new Space(new PawnPiece(Menu.blackPlayer));
+			boardArray[1][col] = new Space(new PawnPiece(Game.blackPlayer));
 		}
 
 		//set up white's players
-		boardArray[7][0] = new Space(new RookPiece(Menu.whitePlayer));
-		boardArray[7][1] = new Space(new KnightPiece(Menu.whitePlayer));
-		boardArray[7][2] = new Space(new BishopPiece(Menu.whitePlayer));
-		boardArray[7][3] = new Space(new QueenPiece(Menu.whitePlayer));
-		boardArray[7][4] = new Space(new KingPiece(Menu.whitePlayer));
-		boardArray[7][5] = new Space(new BishopPiece(Menu.whitePlayer));
-		boardArray[7][6] = new Space(new KnightPiece(Menu.whitePlayer));
-		boardArray[7][7] = new Space(new RookPiece(Menu.whitePlayer));
+		boardArray[7][0] = new Space(new RookPiece(Game.whitePlayer));
+		boardArray[7][1] = new Space(new KnightPiece(Game.whitePlayer));
+		boardArray[7][2] = new Space(new BishopPiece(Game.whitePlayer));
+		boardArray[7][3] = new Space(new QueenPiece(Game.whitePlayer));
+		boardArray[7][4] = new Space(new KingPiece(Game.whitePlayer));
+		boardArray[7][5] = new Space(new BishopPiece(Game.whitePlayer));
+		boardArray[7][6] = new Space(new KnightPiece(Game.whitePlayer));
+		boardArray[7][7] = new Space(new RookPiece(Game.whitePlayer));
 		for(int col = 0; col < COLS; col++) {
-			boardArray[6][col] = new Space(new PawnPiece(Menu.whitePlayer));
+			boardArray[6][col] = new Space(new PawnPiece(Game.whitePlayer));
 		}
 
 		//set up empty spaces
@@ -232,13 +232,11 @@ public class Board extends GridLayout {
 
 		case 45:	return getSpaceAtXY(startY-radius,startX+radius);
 
-
 		case 60:	return getSpaceAtXY(startY-2,startX+1);
 
 		case 90:	return getSpaceAtXY(startY-radius,startX);
 
 		case 120:	return getSpaceAtXY(startY-2,startX-1);
-
 
 		case 135:	return getSpaceAtXY(startY-radius,startX-radius);
 

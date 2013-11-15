@@ -24,10 +24,20 @@ public class SpaceClickListener extends MouseAdapter {
 		Space newSpace = (Space)e.getSource();
 		Piece newPiece = newSpace.getPiece();
 
-		//if nothing selected, just select the new space and return
+		/*
+		 * If nothing selected, test if the player clicked on one of their own pieces.
+		 *  If so, select the new space and return
+		 *  Otherwise just return, don't select
+		 */
+		
 		if(currentSpace == null) {
 			//If the new space is empty don't select it
 			if(newPiece != null) {
+				if(Game.curPlayer && newPiece.getPlayer().equals(Game.blackPlayer)) {
+					return;
+				} else if(!Game.curPlayer && newPiece.getPlayer().equals(Game.whitePlayer)) {
+					return;
+				}
 				currentSpace = newSpace;
 				currentSpace.select();
 			}
@@ -63,8 +73,9 @@ public class SpaceClickListener extends MouseAdapter {
 					System.out.println("illegal move!");
 				}
 
-
-
+				//flip player's turns
+				Game.curPlayer = !Game.curPlayer;
+				
 			} else { //If the space clicked on is occupied...
 
 
@@ -87,6 +98,8 @@ public class SpaceClickListener extends MouseAdapter {
 						((KingPiece) currentPiece).moved();
 					}
 					
+					//flip player's turns
+					Game.curPlayer = !Game.curPlayer;
 					
 				} else {
 					System.out.println("illegal capture!");

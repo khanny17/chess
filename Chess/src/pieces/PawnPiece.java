@@ -1,5 +1,6 @@
 package pieces;
 
+import game.Game;
 import game.Piece;
 import game.Player;
 import game.Menu;
@@ -33,13 +34,13 @@ public class PawnPiece extends Piece {
 		
 
 		//Set image to black or white pawn depending on the player
-		if(player == Menu.blackPlayer) {
+		if(player == Game.blackPlayer) {
 			try {                
 				image = ImageIO.read(new File("src/images/pawn_black.png"));
 			} catch (IOException ex) {
 				System.out.println("File Not Found!");
 			}
-		} else if(player.equals(Menu.whitePlayer)) {
+		} else if(player.equals(Game.whitePlayer)) {
 			try {                
 				image = ImageIO.read(new File("src/images/pawn_white.png"));
 			} catch (IOException ex) {
@@ -51,7 +52,7 @@ public class PawnPiece extends Piece {
 	}
 
 	public String toString() {
-		String myplayer = (getPlayer() == Menu.whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer() == Game.whitePlayer) ? "White" : "Black";
 		return myplayer + " Pawn";
 	}
 
@@ -82,13 +83,13 @@ public class PawnPiece extends Piece {
 	@Override
 	protected void defineMoves() {
 		this.moveMap = new HashMap<Integer,Integer>();
-		if(getPlayer().equals(Menu.whitePlayer)) {
+		if(getPlayer().equals(Game.whitePlayer)) {
 			if(!hasMoved) {
 				moveMap.put(90, 2);
 			} else {
 				moveMap.put(90, 1);
 			}
-		} else if(getPlayer().equals(Menu.blackPlayer)) {
+		} else if(getPlayer().equals(Game.blackPlayer)) {
 			if(!hasMoved) {
 				moveMap.put(270, 2);
 			} else {
@@ -105,10 +106,10 @@ public class PawnPiece extends Piece {
 	@Override
 	protected void defineCaptures() {
 		this.captureMap = new HashMap<Integer,Integer>();
-		if(getPlayer().equals(Menu.whitePlayer)) {
+		if(getPlayer().equals(Game.whitePlayer)) {
 			captureMap.put(45,1);
 			captureMap.put(135,1);
-		} else if(getPlayer().equals(Menu.blackPlayer)) {
+		} else if(getPlayer().equals(Game.blackPlayer)) {
 			captureMap.put(225,1);
 			captureMap.put(315,1);
 		}

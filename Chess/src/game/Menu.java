@@ -22,9 +22,7 @@ import java.awt.FlowLayout;
 @SuppressWarnings("serial")
 public class Menu extends JFrame {
 	
-	public static Player whitePlayer;
-	public static Player blackPlayer;
-	public static GameFrame gameFrame;
+	
 	
 	/**
 	 * Initializes as the main menu for the game.
@@ -50,16 +48,16 @@ public class Menu extends JFrame {
 				 * computer, else vice versa
 				 * Why nested ternary? Because nested ternarys are cool!
 				 */
-				blackPlayer = (whitePlayer = (sideResponse == 1) ?
+				Game.blackPlayer = (Game.whitePlayer = (sideResponse == 1) ?
 					new HumanPlayer() : new ComputerPlayer())
 						instanceof HumanPlayer ? new ComputerPlayer() :
 							new HumanPlayer();
 								
 				Menu.this.setVisible(false);
-				gameFrame = new GameFrame();
-				gameFrame.pack();
-				gameFrame.setVisible(true);
-				gameFrame.repaint();
+				Game.gameFrame = new GameFrame();
+				Game.gameFrame.pack();
+				Game.gameFrame.setVisible(true);
+				Game.gameFrame.repaint();
 			}
 		});
 		
@@ -68,14 +66,14 @@ public class Menu extends JFrame {
 		twoPlayers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Initializes both players as human
-				blackPlayer = new HumanPlayer();
-				whitePlayer = new HumanPlayer();
+				Game.blackPlayer = new HumanPlayer();
+				Game.whitePlayer = new HumanPlayer();
 				
 				Menu.this.setVisible(false);
-				gameFrame = new GameFrame();
-				gameFrame.pack();
-				gameFrame.setVisible(true);
-				gameFrame.repaint();
+				Game.gameFrame = new GameFrame();
+				Game.gameFrame.pack();
+				Game.gameFrame.setVisible(true);
+				Game.gameFrame.repaint();
 			}
 		});
 		
@@ -84,10 +82,5 @@ public class Menu extends JFrame {
 		
 	}
 	
-	public static void main(String args[]) {
-		Menu menu = new Menu();
-		menu.pack();
-		menu.setVisible(true);
-	}
 	
 }
