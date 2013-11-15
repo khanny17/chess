@@ -237,7 +237,7 @@ public class Board extends GridLayout {
 
 		case 90:	return getSpaceAtXY(startY-radius,startX);
 
-		case 120:	return getSpaceAtXY(startY+2,startX-1);
+		case 120:	return getSpaceAtXY(startY-2,startX-1);
 
 
 		case 135:	return getSpaceAtXY(startY-radius,startX-radius);
