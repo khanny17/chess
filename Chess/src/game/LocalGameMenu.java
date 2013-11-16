@@ -20,14 +20,14 @@ import java.awt.FlowLayout;
  * @author Kevin Hannigan
  */
 @SuppressWarnings("serial")
-public class Menu extends JFrame {
+public class LocalGameMenu extends JFrame {
 	
 	
 	
 	/**
 	 * Initializes as the main menu for the game.
 	 */
-	public Menu() {
+	public LocalGameMenu() {
 		super();
 		setTitle("Main Menu");
 		setLocationRelativeTo(null);
@@ -39,7 +39,7 @@ public class Menu extends JFrame {
 		onePlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//prompts the user to pick a side
-				int sideResponse = JOptionPane.showOptionDialog(Menu.this,
+				int sideResponse = JOptionPane.showOptionDialog(LocalGameMenu.this,
 						"Choose your side!", "Pick a Side",
 						JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
 						null, new String[]{"White","Black"},"White");
@@ -53,7 +53,7 @@ public class Menu extends JFrame {
 						instanceof HumanPlayer ? new ComputerPlayer() :
 							new HumanPlayer();
 								
-				Menu.this.setVisible(false);
+				LocalGameMenu.this.setVisible(false);
 				Game.gameFrame = new GameFrame();
 				Game.gameFrame.pack();
 				Game.gameFrame.setVisible(true);
@@ -69,7 +69,7 @@ public class Menu extends JFrame {
 				Game.blackPlayer = new HumanPlayer();
 				Game.whitePlayer = new HumanPlayer();
 				
-				Menu.this.setVisible(false);
+				LocalGameMenu.this.setVisible(false);
 				Game.gameFrame = new GameFrame();
 				Game.gameFrame.pack();
 				Game.gameFrame.setVisible(true);

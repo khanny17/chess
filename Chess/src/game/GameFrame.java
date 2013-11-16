@@ -1,7 +1,12 @@
 package game;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  * The GUI window for the game.
@@ -28,7 +33,36 @@ public class GameFrame extends JFrame {
 		
 		//set up menubar
 		JMenuBar menuBar = new JMenuBar();
-		JMenu view = new JMenu("view");
+		
+		//set up File tab
+		JMenu file = new JMenu("File");
+		JMenuItem quit = new JMenuItem("Exit");
+		quit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			GameFrame.this.dispatchEvent(
+					new WindowEvent(GameFrame.this, WindowEvent.WINDOW_CLOSING));
+			}
+		});
+		
+		file.add(quit);
+		
+		//set up View tab
+		JMenu view = new JMenu("View");
+		JMenuItem chatSelect = new JMenuItem("Chat");
+		
+		chatSelect.addMouseListener(new MouseAdapter() {
+			/**
+			 * Handles the user input via mouse
+			 */
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("Chat Window would open");
+			}
+		});
+		
+		view.add(chatSelect);
+		menuBar.add(file);
 		menuBar.add(view);
 		this.setJMenuBar(menuBar);
 		

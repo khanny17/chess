@@ -15,9 +15,10 @@ public class Game {
 	public static GameFrame gameFrame;
 
 	public static void main(String args[]) {
-		Menu menu = new Menu();
-		menu.pack();
-		menu.setVisible(true);
+		
+		LocalGameMenu localMenu = new LocalGameMenu();
+		localMenu.pack();
+		localMenu.setVisible(true);
 		curPlayer = true;
 	}
 	
