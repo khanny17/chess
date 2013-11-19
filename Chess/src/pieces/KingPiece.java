@@ -1,12 +1,12 @@
 package pieces;
 
-import game.Piece;
-import game.Player;
-import game.Game;
-
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+
+import model.Game;
+import model.Piece;
+import model.Player;
 
 import java.io.File;
 import java.io.IOException;

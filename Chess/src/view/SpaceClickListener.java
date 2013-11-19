@@ -1,7 +1,10 @@
-package game;
+package view;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import model.Game;
+import model.Piece;
+import model.Space;
 import pieces.*;
 
 /**
@@ -11,7 +14,7 @@ import pieces.*;
 public class SpaceClickListener extends MouseAdapter {
 
 	//keeps track of the currently selected space
-	Space currentSpace = null;
+	SpacePanel currentSpacePanel = null;
 
 	/**
 	 * Handles the user input via mouse
@@ -21,8 +24,8 @@ public class SpaceClickListener extends MouseAdapter {
 
 
 		//get the space which was clicked and the piece on that space
-		Space newSpace = (Space)e.getSource();
-		Piece newPiece = newSpace.getPiece();
+		SpacePanel newSpacePanel = (SpacePanel)e.getSource();
+		Piece newPiece = newSpacePanel.getPiece();
 
 		/*
 		 * If nothing selected, test if the player clicked on one of their own pieces.
@@ -30,7 +33,7 @@ public class SpaceClickListener extends MouseAdapter {
 		 *  Otherwise just return, don't select
 		 */
 		
-		if(currentSpace == null) {
+		if(currentSpacePanel == null) {
 			//If the new space is empty don't select it
 			if(newPiece != null) {
 				if(Game.curPlayer && newPiece.getPlayer().equals(Game.blackPlayer)) {
@@ -38,17 +41,17 @@ public class SpaceClickListener extends MouseAdapter {
 				} else if(!Game.curPlayer && newPiece.getPlayer().equals(Game.whitePlayer)) {
 					return;
 				}
-				currentSpace = newSpace;
-				currentSpace.select();
+				currentSpacePanel = newSpacePanel;
+				currentSpacePanel.select();
 			}
 			return;
 		}
 
 
 
-		Piece currentPiece = currentSpace.getPiece();
+		Piece currentPiece = currentSpacePanel.getPiece();
 
-		if(newSpace != currentSpace) {
+		if(newSpacePanel != currentSpacePanel) {
 
 			//If the space clicked on is empty...
 			if(newPiece == null) {
@@ -56,10 +59,10 @@ public class SpaceClickListener extends MouseAdapter {
 
 
 				//Test for legal move
-				if(GameFrame.board.isLegalMove(currentSpace, newSpace)) {
+				if(Game.board.isLegalMove(currentSpacePanel, newSpacePanel)) {
 					//move current space piece to new space
-					currentSpace.setPiece(null);
-					newSpace.setPiece(currentPiece);
+					currentSpacePanel.setPiece(null);
+					newSpacePanel.setPiece(currentPiece);
 					if(currentPiece instanceof PawnPiece) {
 						((PawnPiece) currentPiece).moved();
 					} else if(currentPiece instanceof PawnPiece) {
@@ -80,13 +83,13 @@ public class SpaceClickListener extends MouseAdapter {
 
 				//Test for legal capture
 				Piece captured =
-						GameFrame.board.isLegalCapture(currentSpace, newSpace);
+						GameFrame.board.isLegalCapture(currentSpacePanel, newSpacePanel);
 				if(captured != null) {
 					//add captured piece to array
 					
 					//move current space piece to new space
-					currentSpace.setPiece(null);
-					newSpace.setPiece(currentPiece);
+					currentSpacePanel.setPiece(null);
+					newSpacePanel.setPiece(currentPiece);
 					
 					if(currentPiece instanceof PawnPiece) {
 						((PawnPiece) currentPiece).moved();
@@ -111,14 +114,14 @@ public class SpaceClickListener extends MouseAdapter {
 		 */
 
 		//repaint spaces
-		currentSpace.paintComponent(currentSpace.getGraphics());
-		newSpace.paintComponent(newSpace.getGraphics());
+		currentSpacePanel.paintComponent(currentSpacePanel.getGraphics());
+		newSpacePanel.paintComponent(newSpacePanel.getGraphics());
 
 		/*
 		 * Deselect the old space, set current space to null
 		 */
-		currentSpace.deselect();
-		currentSpace = null;
+		currentSpacePanel.deselect();
+		currentSpacePanel = null;
 
 	}
 }

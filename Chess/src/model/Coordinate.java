@@ -1,4 +1,4 @@
-package game;
+package model;
 /**
  * Enum file to define coordinates in the game board grid as a letter number pair
  * @author Kevin Hannigan

@@ -1,4 +1,8 @@
-package game;
+package model;
+
+import view.GameFrame;
+import view.LocalGameMenu;
+
 /**
  * The class which controls game flow
  * 
@@ -10,9 +14,17 @@ public class Game {
 	 * curPlayeris true if white is going, false if black is going
 	 */
 	public static boolean curPlayer;
+	
+	/**
+	 * The 2 players.
+	 */
 	public static Player whitePlayer;
 	public static Player blackPlayer;
-	public static GameFrame gameFrame;
+	
+	/**
+	 * The game board played upon
+	 */
+	public static Board board = new Board();
 
 	public static void main(String args[]) {
 		

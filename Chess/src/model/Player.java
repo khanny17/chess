@@ -1,4 +1,4 @@
-package game;
+package model;
 import java.util.ArrayList;
 /**
  * This is the interface which defines a player in the chess game

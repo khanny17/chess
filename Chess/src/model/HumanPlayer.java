@@ -1,12 +1,12 @@
-package game;
+package model;
 /**
- * The subclass of Player for a computer player.
+ * The subclass of Player for a Human player.
  * 
  * @author Kevin Hannigan
  */
-public class ComputerPlayer extends Player {
+public class HumanPlayer extends Player {
 
-	public ComputerPlayer() {
+	public HumanPlayer() {
 		// TODO Auto-generated constructor stub
 	}
 

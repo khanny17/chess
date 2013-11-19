@@ -1,8 +1,7 @@
-package game;
+package model;
 
 import pieces.*;
 
-import java.awt.GridLayout;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -11,17 +10,12 @@ import java.util.Iterator;
 /**
  * This class defines the chess board on which the game is played.
  * It keeps track of the spaces with a two dimensional array.
- * The class works as the GridLayout for the GUI too.
  * 
  * @author Kevin Hannigan
  */
-@SuppressWarnings("serial")
-public class Board extends GridLayout {
+public class Board {
 
-	/**
-	 * The listener used to control space selection throughout the game
-	 */
-	public static final SpaceClickListener selector = new SpaceClickListener();
+
 
 	/**
 	 * The array used to represent the board. The board is defined such that
@@ -31,16 +25,13 @@ public class Board extends GridLayout {
 	 */
 	private Space[][] boardArray;
 
-	protected static final byte ROWS = 8;
-	protected static final byte COLS = 8;
+	public static final int ROWS = 8;
+	public static final int COLS = 8;
 
 	/**
 	 * Constructs the default game board set up for the start of the game
 	 */
 	public Board() {
-		//set up the GridLayout
-		super(8,8,0,0);
-
 		//Place the pieces
 		boardArray = new Space[ROWS][COLS];
 
@@ -77,24 +68,7 @@ public class Board extends GridLayout {
 			}
 		}
 
-		//color the panels black/white
-		for(int row = 0; row < ROWS; row++) {
-			for(int col = 0; col < COLS; col++) {
-				if(row%2 == 0) {
-					if(col%2 == 1) {
-						boardArray[row][col].setBackground(Color.GRAY);
-					} else {
-						boardArray[row][col].setBackground(Color.WHITE);
-					}
-				} else {
-					if(col%2 == 0) {
-						boardArray[row][col].setBackground(Color.GRAY);
-					} else {
-						boardArray[row][col].setBackground(Color.WHITE);
-					}
-				}
-			}
-		}
+		
 	}
 
 	/**
