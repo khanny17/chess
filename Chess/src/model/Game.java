@@ -1,7 +1,15 @@
 package model;
 
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+import view.BoardPanel;
 import view.GameFrame;
-import view.LocalGameMenu;
 
 /**
  * The class which controls game flow
@@ -24,14 +32,19 @@ public class Game {
 	/**
 	 * The game board played upon
 	 */
-	public static Board board = new Board();
-
+	public static Board board;
+	
 	public static void main(String args[]) {
 		
-		LocalGameMenu localMenu = new LocalGameMenu();
-		localMenu.pack();
-		localMenu.setVisible(true);
 		curPlayer = true;
+		GameFrame gameFrame = new GameFrame();
+		BoardPanel boardPanel = new BoardPanel();
+		gameFrame.add(boardPanel);
+		
+		gameFrame.pack();
+		gameFrame.setVisible(true);
 	}
+	
+	
 	
 }

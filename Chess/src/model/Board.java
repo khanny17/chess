@@ -136,57 +136,9 @@ public class Board {
 		return (x < ROWS && x >= 0 && y < COLS && y >= 0);
 	}
 
-	/**
-	 * Tests if it is legal for the piece on "from" to move to "to"
-	 * @param from the space where the piece is moving from
-	 * @param to the space the piece is moving to
-	 * @return true if it is a legal move
-	 */
-	public boolean isLegalMove(Space from, Space to) {
-		Piece movingPiece = from.getPiece();
-		Piece otherPiece = to.getPiece();
+	
 
-		//If the other space isn't empty, its a CAPTURE not a MOVE so its false
-		if(otherPiece != null) {
-			return false;
-		}
-
-		int[] xy = getXYofSpace(from);
-		int fromX = xy[0];
-		int fromY = xy[1];
-
-		//get the defined possible moves for the from piece
-		HashMap<Integer,Integer> moves = movingPiece.getMoves();
-
-		return this.spaceIsInMap(moves, fromX, fromY, to);
-
-	}
-
-	/**
-	 * Tests if it is legal for the piece on "from" to capture the piece on "to"
-	 * @param from the space where the piece is moving from
-	 * @param to the space the piece is moving to
-	 * @return true if it is a legal capture
-	 */
-	public Piece isLegalCapture(Space from, Space to) {
-		//If its the same player just return null. Otherwise
-		if(to.getPiece().getPlayer().equals(from.getPiece().getPlayer())) {
-			return null;
-		} else {
-			int[] xy = getXYofSpace(from);
-			int fromX = xy[0];
-			int fromY = xy[1];
-
-			//get the defined possible moves for the from piece
-			HashMap<Integer,Integer> moves = from.getPiece().getCaptures();
-
-			if(this.spaceIsInMap(moves, fromX, fromY, to)) {
-				return to.getPiece();
-			} else {
-				return null;
-			}
-		}
-	}
+	
 
 
 	/**
@@ -238,7 +190,7 @@ public class Board {
 	}
 
 	/**
-	 * Private method to determine if the given Space (to) is able to be
+	 * Method to determine if the given Space (to) is able to be
 	 *  reached according to the moves defined in (moves)
 	 * @param moves The dir/radius map defined by the piece. Could be the
 	 * 				 capture map or the move map
@@ -247,7 +199,7 @@ public class Board {
 	 * @param to The space we are searching for
 	 * @return true if the space is able to be reached according to the map
 	 */
-	private boolean spaceIsInMap(HashMap<Integer, Integer> moves, int fromX, int fromY, Space to) {
+	public boolean spaceIsInMap(HashMap<Integer, Integer> moves, int fromX, int fromY, Space to) {
 
 		//Go through each possible move and test to see if "to" is one of them
 		Space possibleSpace;

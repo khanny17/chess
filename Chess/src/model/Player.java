@@ -1,14 +1,13 @@
 package model;
-import java.util.ArrayList;
+
 /**
  * This is the interface which defines a player in the chess game
  * 
  * @author Kevin Hannigan
  */
-public abstract class Player {
+public enum Player {
 	
-	public ArrayList<Piece> myPieces;
-	
-	public abstract Coordinate getMove();
+	HumanPlayer(),
+	ComputerPlayer();
 
 }

@@ -28,13 +28,13 @@ public class GameFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		
-		this.setJMenuBar(new GameFrameMenuBar());
-		
 		setResizable(false);
 		//If you want to change it to be resizable, try component listener
 		
 		
 		repaint();
 	}
+	
+	
 	
 }
