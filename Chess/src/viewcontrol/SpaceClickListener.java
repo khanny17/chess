@@ -48,11 +48,12 @@ public class SpaceClickListener extends MouseAdapter {
 			}
 			return;
 		} else {
-			//we already have a piece selected, so try to move it
-			if(Chess.board.move(currentSpacePanel.getSpace(), newSpacePanel.getSpace())) {
-				/*
-				 * Deselect the old space, set current space to null
-				 */
+			//user clicked on same space, deselect
+			if(currentSpacePanel == newSpacePanel) {
+				currentSpacePanel.deselect();
+				currentSpacePanel = null;
+			} else if(Chess.board.move(currentSpacePanel.getSpace(), newSpacePanel.getSpace())) {
+				//we already have a piece selected, so try to move it
 				currentSpacePanel.deselect();
 				currentSpacePanel = null;
 			}
