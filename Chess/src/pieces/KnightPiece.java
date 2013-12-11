@@ -1,20 +1,12 @@
 package pieces;
 
-import game.Game;
-import game.Piece;
-import game.Player;
+import model.Chess;
+import model.Piece;
+import model.Player;
 
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class KnightPiece extends Piece {
-	
-	private BufferedImage image;
 	
 	/**
 	 * Constructs a Knight with the passed player and sets the image
@@ -23,26 +15,10 @@ public class KnightPiece extends Piece {
 	 */
 	public KnightPiece(Player player) {
 		super(player);
-		
-		if(player == Game.blackPlayer) {
-			try {                
-				image = ImageIO.read(new File("src/images/knight_black.png"));
-			} catch (IOException ex) {
-				System.out.println("File Not Found!");
-			}
-		} else if(player.equals(Game.whitePlayer)) {
-			try {                
-				image = ImageIO.read(new File("src/images/knight_white.png"));
-			} catch (IOException ex) {
-				System.out.println("File Not Found!");
-			}
-		}
-		
-		setImage(image);
 	}
 	
 	public String toString() {
-		String myplayer = (getPlayer() == Game.whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer() == Chess.whitePlayer) ? "White" : "Black";
 		return myplayer + " Knight";
 	}
 

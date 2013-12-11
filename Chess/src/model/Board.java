@@ -1,9 +1,7 @@
-package game;
+package model;
 
 import pieces.*;
 
-import java.awt.GridLayout;
-import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Iterator;
@@ -11,17 +9,15 @@ import java.util.Iterator;
 /**
  * This class defines the chess board on which the game is played.
  * It keeps track of the spaces with a two dimensional array.
- * The class works as the GridLayout for the GUI too.
  * 
  * @author Kevin Hannigan
  */
-@SuppressWarnings("serial")
-public class Board extends GridLayout {
+public class Board {
 
 	/**
-	 * The listener used to control space selection throughout the game
+	 * A list of each piece that has been captured so far
 	 */
-	public static final SpaceClickListener selector = new SpaceClickListener();
+	private java.util.ArrayList<Piece> capturedPieces;
 
 	/**
 	 * The array used to represent the board. The board is defined such that
@@ -31,43 +27,42 @@ public class Board extends GridLayout {
 	 */
 	private Space[][] boardArray;
 
-	protected static final byte ROWS = 8;
-	protected static final byte COLS = 8;
+	public static final int ROWS = 8;
+	public static final int COLS = 8;
 
 	/**
 	 * Constructs the default game board set up for the start of the game
 	 */
 	public Board() {
-		//set up the GridLayout
-		super(8,8,0,0);
-
+		capturedPieces = new java.util.ArrayList<Piece>();
+		
 		//Place the pieces
 		boardArray = new Space[ROWS][COLS];
 
 		//set up black's players
-		boardArray[0][0] = new Space(new RookPiece(Game.blackPlayer));
-		boardArray[0][1] = new Space(new KnightPiece(Game.blackPlayer));
-		boardArray[0][2] = new Space(new BishopPiece(Game.blackPlayer));
-		boardArray[0][3] = new Space(new QueenPiece(Game.blackPlayer));
-		boardArray[0][4] = new Space(new KingPiece(Game.blackPlayer));
-		boardArray[0][5] = new Space(new BishopPiece(Game.blackPlayer));
-		boardArray[0][6] = new Space(new KnightPiece(Game.blackPlayer));
-		boardArray[0][7] = new Space(new RookPiece(Game.blackPlayer));
+		boardArray[0][0] = new Space(new RookPiece(Chess.blackPlayer));
+		boardArray[0][1] = new Space(new KnightPiece(Chess.blackPlayer));
+		boardArray[0][2] = new Space(new BishopPiece(Chess.blackPlayer));
+		boardArray[0][3] = new Space(new QueenPiece(Chess.blackPlayer));
+		boardArray[0][4] = new Space(new KingPiece(Chess.blackPlayer));
+		boardArray[0][5] = new Space(new BishopPiece(Chess.blackPlayer));
+		boardArray[0][6] = new Space(new KnightPiece(Chess.blackPlayer));
+		boardArray[0][7] = new Space(new RookPiece(Chess.blackPlayer));
 		for(int col = 0; col < COLS; col++) {
-			boardArray[1][col] = new Space(new PawnPiece(Game.blackPlayer));
+			boardArray[1][col] = new Space(new PawnPiece(Chess.blackPlayer));
 		}
 
 		//set up white's players
-		boardArray[7][0] = new Space(new RookPiece(Game.whitePlayer));
-		boardArray[7][1] = new Space(new KnightPiece(Game.whitePlayer));
-		boardArray[7][2] = new Space(new BishopPiece(Game.whitePlayer));
-		boardArray[7][3] = new Space(new QueenPiece(Game.whitePlayer));
-		boardArray[7][4] = new Space(new KingPiece(Game.whitePlayer));
-		boardArray[7][5] = new Space(new BishopPiece(Game.whitePlayer));
-		boardArray[7][6] = new Space(new KnightPiece(Game.whitePlayer));
-		boardArray[7][7] = new Space(new RookPiece(Game.whitePlayer));
+		boardArray[7][0] = new Space(new RookPiece(Chess.whitePlayer));
+		boardArray[7][1] = new Space(new KnightPiece(Chess.whitePlayer));
+		boardArray[7][2] = new Space(new BishopPiece(Chess.whitePlayer));
+		boardArray[7][3] = new Space(new QueenPiece(Chess.whitePlayer));
+		boardArray[7][4] = new Space(new KingPiece(Chess.whitePlayer));
+		boardArray[7][5] = new Space(new BishopPiece(Chess.whitePlayer));
+		boardArray[7][6] = new Space(new KnightPiece(Chess.whitePlayer));
+		boardArray[7][7] = new Space(new RookPiece(Chess.whitePlayer));
 		for(int col = 0; col < COLS; col++) {
-			boardArray[6][col] = new Space(new PawnPiece(Game.whitePlayer));
+			boardArray[6][col] = new Space(new PawnPiece(Chess.whitePlayer));
 		}
 
 		//set up empty spaces
@@ -77,48 +72,7 @@ public class Board extends GridLayout {
 			}
 		}
 
-		//color the panels black/white
-		for(int row = 0; row < ROWS; row++) {
-			for(int col = 0; col < COLS; col++) {
-				if(row%2 == 0) {
-					if(col%2 == 1) {
-						boardArray[row][col].setBackground(Color.GRAY);
-					} else {
-						boardArray[row][col].setBackground(Color.WHITE);
-					}
-				} else {
-					if(col%2 == 0) {
-						boardArray[row][col].setBackground(Color.GRAY);
-					} else {
-						boardArray[row][col].setBackground(Color.WHITE);
-					}
-				}
-			}
-		}
-	}
 
-	/**
-	 * Turns an X/Y pair into a Coordinate
-	 * @param x the x value
-	 * @param y the y value
-	 * @return the Coordinate which matches the x/y pair
-	 */
-	public Coordinate toCoor(int x, int y) {
-		for(Coordinate c: Coordinate.values()) {
-			if(c.x == x && c.y == y) {
-				return c;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * returns the X/Y coordinates of a Coordinate in an integer array
-	 * @param c the coordinate
-	 * @return an int[] with the x and y values
-	 */
-	public int[] toXY(Coordinate c) {
-		return new int[] {c.x,c.y};
 	}
 
 	//Returns the wrapped 2D Space array
@@ -163,29 +117,52 @@ public class Board extends GridLayout {
 	}
 
 	/**
-	 * Tests if it is legal for the piece on "from" to move to "to"
-	 * @param from the space where the piece is moving from
-	 * @param to the space the piece is moving to
-	 * @return true if it is a legal move
+	 * Tries to move a piece from "from" to "to"
+	 * 
+	 * @param from - The space of the piece moving
+	 * @param to - The space the piece wants to move to
 	 */
-	public boolean isLegalMove(Space from, Space to) {
-		Piece movingPiece = from.getPiece();
-		Piece otherPiece = to.getPiece();
+	public boolean move(Space from, Space to) {
+		Piece fromPiece = from.getPiece();
 
-		//If the other space isn't empty, its a CAPTURE not a MOVE so its false
-		if(otherPiece != null) {
-			return false;
+
+		//If the space clicked on is empty...
+		if(to.isEmpty()) {
+
+			//Test for legal move
+			if(isLegalMove(from, to)) {
+				//move "from" piece to "to" space
+				from.setPiece(null);
+				to.setPiece(fromPiece);
+				fromPiece.moved();
+				//flip player's turns
+				Chess.curPlayer = !Chess.curPlayer;
+				return true;
+			} else {
+				return false;
+			}
+
+		} else { 
+			//If the space clicked on is occupied...
+
+
+			//Test for legal capture
+			Piece captured = isLegalCapture(from, to);
+			if(captured != null) {
+				//add captured piece to array
+				this.capturedPieces.add(captured);
+				//move "from" piece to "to" space
+				from.setPiece(null);
+				to.setPiece(fromPiece);
+				fromPiece.moved();
+				//flip player's turns
+				Chess.curPlayer = !Chess.curPlayer;
+				return true;
+			} else {
+				return false;
+			}
+
 		}
-
-		int[] xy = getXYofSpace(from);
-		int fromX = xy[0];
-		int fromY = xy[1];
-
-		//get the defined possible moves for the from piece
-		HashMap<Integer,Integer> moves = movingPiece.getMoves();
-
-		return this.spaceIsInMap(moves, fromX, fromY, to);
-
 	}
 
 	/**
@@ -194,25 +171,51 @@ public class Board extends GridLayout {
 	 * @param to the space the piece is moving to
 	 * @return true if it is a legal capture
 	 */
-	public Piece isLegalCapture(Space from, Space to) {
+	private Piece isLegalCapture(Space from, Space to) {
 		//If its the same player just return null. Otherwise
 		if(to.getPiece().getPlayer().equals(from.getPiece().getPlayer())) {
 			return null;
 		} else {
-			int[] xy = getXYofSpace(from);
+			int[] xy = Chess.board.getXYofSpace(from);
 			int fromX = xy[0];
 			int fromY = xy[1];
 
 			//get the defined possible moves for the from piece
 			HashMap<Integer,Integer> moves = from.getPiece().getCaptures();
 
-			if(this.spaceIsInMap(moves, fromX, fromY, to)) {
+			if(Chess.board.spaceIsInMap(moves, fromX, fromY, to)) {
 				return to.getPiece();
 			} else {
 				return null;
 			}
 		}
 	}
+
+	/**
+	 * Tests if it is legal for the piece on "from" to move to "to"
+	 * @param from the space where the piece is moving from
+	 * @param to the space the piece is moving to
+	 * @return true if it is a legal move
+	 */
+	private boolean isLegalMove(Space from, Space to) {
+		Piece movingPiece = from.getPiece();
+		Piece otherPiece = to.getPiece();
+
+		//If the other space isn't empty, its a CAPTURE not a MOVE so its false
+		if(otherPiece != null) {
+			return false;
+		}
+
+		int[] xy = Chess.board.getXYofSpace(from);
+		int fromX = xy[0];
+		int fromY = xy[1];
+
+		//get the defined possible moves for the from piece
+		HashMap<Integer,Integer> moves = movingPiece.getMoves();
+
+		return Chess.board.spaceIsInMap(moves, fromX, fromY, to);
+
+	}	
 
 
 	/**
@@ -224,7 +227,7 @@ public class Board extends GridLayout {
 	 * @return the space at that point
 	 */
 	public Space getSpaceFromMove(int startY, int startX,int dir, int radius) {
-		
+
 		switch(dir) {
 		case 0:		return getSpaceAtXY(startY,startX+radius);		
 
@@ -259,12 +262,12 @@ public class Board extends GridLayout {
 		case 330:	return getSpaceAtXY(startY+1,startX+2);
 
 		default: 	System.err.println("Invalid Direction!");
-					return null;
+		return null;
 		}
 	}
 
 	/**
-	 * Private method to determine if the given Space (to) is able to be
+	 * Method to determine if the given Space (to) is able to be
 	 *  reached according to the moves defined in (moves)
 	 * @param moves The dir/radius map defined by the piece. Could be the
 	 * 				 capture map or the move map
@@ -273,7 +276,7 @@ public class Board extends GridLayout {
 	 * @param to The space we are searching for
 	 * @return true if the space is able to be reached according to the map
 	 */
-	private boolean spaceIsInMap(HashMap<Integer, Integer> moves, int fromX, int fromY, Space to) {
+	public boolean spaceIsInMap(HashMap<Integer, Integer> moves, int fromX, int fromY, Space to) {
 
 		//Go through each possible move and test to see if "to" is one of them
 		Space possibleSpace;
@@ -315,6 +318,13 @@ public class Board extends GridLayout {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Returns the arraylist of captured pieces
+	 */
+	public java.util.ArrayList<Piece> getCapturedPieces() {
+		return this.capturedPieces;
 	}
 }
 
