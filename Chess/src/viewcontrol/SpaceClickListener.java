@@ -1,12 +1,8 @@
-package view;
+package viewcontrol;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import model.Game;
-import model.MoveCheckThread;
-import model.Piece;
-import model.Space;
-import pieces.*;
+import model.Chess;
 
 /**
  * Listener class used to listen for when the user clicks a space.
@@ -25,10 +21,13 @@ public class SpaceClickListener extends MouseAdapter {
 	@Override
 	public void mouseReleased(MouseEvent e) {		
 
-
 		//get the space which was clicked and the piece on that space
 		SpacePanel newSpacePanel = (SpacePanel)e.getSource();
-		Piece newPiece = newSpacePanel.getPiece();
+		
+		model.Piece newPiece = newSpacePanel.getSpace().getPiece();
+		
+		
+		
 		/*
 		 * If nothing is currently selected, test if the player clicked on one
 		 *  of their own pieces.
@@ -39,9 +38,9 @@ public class SpaceClickListener extends MouseAdapter {
 		if(currentSpacePanel == null) {
 			//If the new space is empty don't select it
 			if(newPiece != null) {
-				if(Game.curPlayer && newPiece.getPlayer().equals(Game.blackPlayer)) {
+				if(Chess.curPlayer && newPiece.getPlayer().equals(Chess.blackPlayer)) {
 					return;
-				} else if(!Game.curPlayer && newPiece.getPlayer().equals(Game.whitePlayer)) {
+				} else if(!Chess.curPlayer && newPiece.getPlayer().equals(Chess.whitePlayer)) {
 					return;
 				}
 				currentSpacePanel = newSpacePanel;
@@ -49,26 +48,14 @@ public class SpaceClickListener extends MouseAdapter {
 			}
 			return;
 		} else {
-			MoveCheckThread check = new MoveCheckThread(currentSpacePanel.getSpace(), newSpacePanel.getSpace());
+			//we already have a piece selected, so try to move it
+			if(Chess.board.move(currentSpacePanel.getSpace(), newSpacePanel.getSpace())) {
+				/*
+				 * Deselect the old space, set current space to null
+				 */
+				currentSpacePanel.deselect();
+				currentSpacePanel = null;
+			}
 		}
-
-
-
-		
-
-		/*
-		 * Update graphics
-		 */
-
-		//repaint spaces
-		currentSpacePanel.paintComponent(currentSpacePanel.getGraphics());
-		newSpacePanel.paintComponent(newSpacePanel.getGraphics());
-
-		/*
-		 * Deselect the old space, set current space to null
-		 */
-		currentSpacePanel.deselect();
-		currentSpacePanel = null;
-
 	}
 }

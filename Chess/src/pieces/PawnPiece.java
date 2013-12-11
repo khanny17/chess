@@ -1,26 +1,12 @@
 package pieces;
 
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
-
-import model.Game;
+import model.Chess;
 import model.Piece;
 import model.Player;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class PawnPiece extends Piece {
-
-	/**
-	 * boolean value to keep track of if the pawn has moved.
-	 * Used to incorporate the initial double space move
-	 */
-	private boolean hasMoved = false;
-
-	private BufferedImage image;
 
 	/**
 	 * Constructs a Pawn with the passed player and sets the image
@@ -29,47 +15,11 @@ public class PawnPiece extends Piece {
 	 */
 	public PawnPiece(Player player) {
 		super(player);
-
-		
-
-		//Set image to black or white pawn depending on the player
-		if(player == Game.blackPlayer) {
-			try {                
-				image = ImageIO.read(new File("src/images/pawn_black.png"));
-			} catch (IOException ex) {
-				System.out.println("File Not Found!");
-			}
-		} else if(player.equals(Game.whitePlayer)) {
-			try {                
-				image = ImageIO.read(new File("src/images/pawn_white.png"));
-			} catch (IOException ex) {
-				System.out.println("File Not Found!");
-			}
-		}
-
-		setImage(image);
 	}
 
 	public String toString() {
-		String myplayer = (getPlayer() == Game.whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer() == Chess.whitePlayer) ? "White" : "Black";
 		return myplayer + " Pawn";
-	}
-
-	/**
-	 * Tells whether or not the pawn has moved yet
-	 * @return false if the pawn has not moved yet
-	 */
-	public boolean didMove() {
-		return hasMoved;
-	}
-
-	/**
-	 * Called after the pawn moves. Changes hasMoved to true and calls
-	 *  defineMoves again.
-	 */
-	public void moved() {
-		this.hasMoved = true;
-		this.defineMoves();
 	}
 
 	/**
@@ -82,13 +32,13 @@ public class PawnPiece extends Piece {
 	@Override
 	protected void defineMoves() {
 		this.moveMap = new HashMap<Integer,Integer>();
-		if(getPlayer().equals(Game.whitePlayer)) {
+		if(getPlayer().equals(Chess.whitePlayer)) {
 			if(!hasMoved) {
 				moveMap.put(90, 2);
 			} else {
 				moveMap.put(90, 1);
 			}
-		} else if(getPlayer().equals(Game.blackPlayer)) {
+		} else if(getPlayer().equals(Chess.blackPlayer)) {
 			if(!hasMoved) {
 				moveMap.put(270, 2);
 			} else {
@@ -105,10 +55,10 @@ public class PawnPiece extends Piece {
 	@Override
 	protected void defineCaptures() {
 		this.captureMap = new HashMap<Integer,Integer>();
-		if(getPlayer().equals(Game.whitePlayer)) {
+		if(getPlayer().equals(Chess.whitePlayer)) {
 			captureMap.put(45,1);
 			captureMap.put(135,1);
-		} else if(getPlayer().equals(Game.blackPlayer)) {
+		} else if(getPlayer().equals(Chess.blackPlayer)) {
 			captureMap.put(225,1);
 			captureMap.put(315,1);
 		}

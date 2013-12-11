@@ -1,8 +1,6 @@
 package model;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
 
-import javax.swing.ImageIcon;
+import java.util.HashMap;
 
 /**
  * The abstract class used to define each of the chess pieces
@@ -13,7 +11,12 @@ import javax.swing.ImageIcon;
 public abstract class Piece {
 
 	private Player player;
-	private BufferedImage image;
+	
+	/**
+	 * false until the player moves the piece
+	 * Used for castling and such
+	 */
+	protected boolean hasMoved;
 
 	/**
 	 * This hash map keeps key value pairs for the angle and distance at which
@@ -38,23 +41,20 @@ public abstract class Piece {
 	 */
 	public Piece(Player player) {
 		this.player = player;
+		this.hasMoved = false;
 		//Set up the hash map to define how the pawn moves/captures
 		this.defineMoves();
 		this.defineCaptures();
 	}
 
-	/**
-	 * Returns the BufferedImage as an ImageIcon
-	 * @return the new ImageIcon
-	 */
-	public ImageIcon getImageIcon() {
-		try {
-			return new ImageIcon(image);
-		} catch(Exception e) {
-			return null;
-		}
+	public boolean didMove() {
+		return hasMoved;
 	}
-
+	
+	public void moved() {
+		hasMoved = true;
+	}
+	
 	/**
 	 * Returns legal moves for the piece
 	 * Describes HOW the piece moves, doesn't check the actual spaces
@@ -97,20 +97,8 @@ public abstract class Piece {
 	 */
 	protected abstract void defineCaptures();
 
-	public void setPlayer(Player p) {
-		player = p;
-	}
-
 	public Player getPlayer() {
 		return player;
-	}
-
-	public BufferedImage getImage() {
-		return image;
-	}
-
-	public void setImage(BufferedImage image) {
-		this.image = image;
 	}
 
 	public String toString() {

@@ -1,22 +1,11 @@
 package model;
 
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-
-import view.BoardPanel;
-import view.GameFrame;
-
 /**
  * The class which controls game flow
  * 
  * @author Kevin Hannigan
  */
-public class Game {
+public class Chess {
 	
 	/**
 	 * curPlayeris true if white is going, false if black is going
@@ -26,19 +15,24 @@ public class Game {
 	/**
 	 * The 2 players.
 	 */
-	public static Player whitePlayer;
-	public static Player blackPlayer;
+	public static Player whitePlayer = Player.HumanPlayer;
+	public static Player blackPlayer = Player.ComputerPlayer;
 	
 	/**
 	 * The game board played upon
 	 */
 	public static Board board;
 	
+	/**
+	 * Usage: java 
+	 * @param args
+	 */
 	public static void main(String args[]) {
+		board = new Board();
 		
 		curPlayer = true;
-		GameFrame gameFrame = new GameFrame();
-		BoardPanel boardPanel = new BoardPanel();
+		viewcontrol.GameFrame gameFrame = new viewcontrol.GameFrame();
+		viewcontrol.BoardPanel boardPanel = new viewcontrol.BoardPanel();
 		gameFrame.add(boardPanel);
 		
 		gameFrame.pack();

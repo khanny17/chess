@@ -1,12 +1,13 @@
 package model;
 
+
 /**
  * The model class used to represent the spaces on the board
  * The space may be empty or it may have a piece on it.
  *  
  * @author Kevin Hannigan
  */
-public class Space {
+public class Space extends java.util.Observable{
 	
 	/**
 	 * The piece which is currently on the space.
@@ -48,6 +49,9 @@ public class Space {
 	 */
 	public void setPiece(Piece piece) {
 		this.piece = piece;
+		setChanged();
+		notifyObservers();
+		clearChanged();
 	}
 		
 	/**

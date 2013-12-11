@@ -1,26 +1,13 @@
 package pieces;
 
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
-
-import model.Game;
+import model.Chess;
 import model.Piece;
 import model.Player;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class RookPiece extends Piece {
 	
-	/**
-	 * boolean value to keep track of if the rook has moved.
-	 * Used to incorporate castling
-	 */
-	private boolean hasMoved;
-	
-	private BufferedImage image;
 	
 	/**
 	 * Constructs a Rook with the passed player and sets the image
@@ -29,39 +16,11 @@ public class RookPiece extends Piece {
 	 */
 	public RookPiece(Player player) {
 		super(player);
-		
-		if(player == Game.blackPlayer) {
-			try {                
-				image = ImageIO.read(new File("src/images/rook_black.png"));
-			} catch (IOException ex) {
-				System.out.println("File Not Found!");
-			}
-		} else if(player.equals(Game.whitePlayer)) {
-			try {                
-				image = ImageIO.read(new File("src/images/rook_white.png"));
-			} catch (IOException ex) {
-				System.out.println("File Not Found!");
-			}
-		}
-		
-		setImage(image);
 	}
 	
 	public String toString() {
-		String myplayer = (getPlayer() == Game.whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer() == Chess.whitePlayer) ? "White" : "Black";
 		return myplayer + " Rook";
-	}
-	
-	/**
-	 * returns value of hasMoved
-	 * @return true of the piece has moved
-	 */
-	public boolean didMove() {
-		return hasMoved;
-	}
-	
-	public void moved() {
-		hasMoved = true;
 	}
 	
 	/**
