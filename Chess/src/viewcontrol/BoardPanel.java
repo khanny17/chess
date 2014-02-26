@@ -34,7 +34,7 @@ public class BoardPanel extends JPanel{
 	public static images.Images pieceImages;
 
 	public BoardPanel() {
-		//load the piece images
+		//load the piece imagesshow()
 		try {
 			pieceImages = new images.Images();
 		} catch (IOException e) {

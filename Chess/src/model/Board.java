@@ -1,6 +1,7 @@
 package model;
 
 import pieces.*;
+import viewcontrol.InfoUpdater;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -137,6 +138,7 @@ public class Board {
 				fromPiece.moved();
 				//flip player's turns
 				Chess.curPlayer = !Chess.curPlayer;
+				Chess.infoUpdater.updateTurn();
 				return true;
 			} else {
 				return false;
@@ -151,6 +153,7 @@ public class Board {
 			if(captured != null) {
 				//add captured piece to array
 				this.capturedPieces.add(captured);
+				Chess.infoUpdater.updateCaptured();
 				//move "from" piece to "to" space
 				from.setPiece(null);
 				to.setPiece(fromPiece);

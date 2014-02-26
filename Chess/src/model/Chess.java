@@ -23,6 +23,8 @@ public class Chess {
 	 */
 	public static Board board;
 	
+	public static viewcontrol.InfoUpdater infoUpdater;
+	
 	/**
 	 * Usage: java 
 	 * @param args
@@ -37,6 +39,8 @@ public class Chess {
 		
 		gameFrame.pack();
 		gameFrame.setVisible(true);
+		
+		infoUpdater = new viewcontrol.InfoUpdater(board);
 	}
 	
 	
