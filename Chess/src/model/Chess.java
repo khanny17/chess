@@ -3,7 +3,7 @@ package model;
 /**
  * The class which controls game flow
  * 
- * @author Kevin Hannigan
+ * @author Nick Monteleone and Kevin Hannigan
  */
 public class Chess {
 	
