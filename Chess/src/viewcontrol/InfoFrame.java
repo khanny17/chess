@@ -17,7 +17,7 @@ public class InfoFrame  extends JFrame
 	public InfoFrame() 
 	{
 		super("Game Info");
-		setBounds(660, 0, 450, 700);
+		setBounds(660, 0, 350, 620);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLayout(null);

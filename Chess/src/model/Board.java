@@ -160,6 +160,7 @@ public class Board {
 				fromPiece.moved();
 				//flip player's turns
 				Chess.curPlayer = !Chess.curPlayer;
+				Chess.infoUpdater.updateTurn();
 				return true;
 			} else {
 				return false;
