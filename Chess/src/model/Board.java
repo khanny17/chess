@@ -1,7 +1,6 @@
 package model;
 
 import pieces.*;
-import viewcontrol.InfoUpdater;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -21,6 +20,11 @@ public class Board {
 	private java.util.ArrayList<Piece> capturedPieces;
 
 	/**
+	 * A list of each piece on the board
+	 */
+	private java.util.ArrayList<Piece> activePieces;
+	
+	/**
 	 * The array used to represent the board. The board is defined such that
 	 *  (0,0) = H1, the top left hand corner for the player playing as white
 	 *  
@@ -36,6 +40,7 @@ public class Board {
 	 */
 	public Board() {
 		capturedPieces = new java.util.ArrayList<Piece>();
+		activePieces = new java.util.ArrayList<Piece>();
 		
 		//Place the pieces
 		boardArray = new Space[ROWS][COLS];
@@ -73,7 +78,14 @@ public class Board {
 			}
 		}
 
-
+		//add pieces to active pieces
+		for(Space[] array: boardArray) {
+			for(Space s: array) {
+				if(!s.isEmpty()) {
+					activePieces.add(s.getPiece());
+				}
+			}
+		}
 	}
 
 	//Returns the wrapped 2D Space array
@@ -328,6 +340,84 @@ public class Board {
 	 */
 	public java.util.ArrayList<Piece> getCapturedPieces() {
 		return this.capturedPieces;
+	}
+	
+	/**
+	 * Returns the arraylist of active pieces
+	 */
+	public java.util.ArrayList<Piece> getActivePieces() {
+		return this.activePieces;
+	}
+	
+	/**
+	 * Checks if the white king is in check
+	 * @return true if white's king is in danger
+	 */
+	public boolean whiteInCheck() {
+		//find king
+		Piece king = null;
+		for(Piece p: activePieces) {
+			if(p instanceof KingPiece && p.getPlayer() == Chess.whitePlayer) {
+				king = p;
+			}
+		}
+		int[] kingXY = this.getXYofPiece(king);
+		Space kingSpace = this.getSpaceAtXY(kingXY[0], kingXY[1]);
+		//find if king in danger
+		for(Piece cur: activePieces) {
+			//check only black pieces
+			if(cur.getPlayer() != Chess.whitePlayer) {
+				int[] curXY = this.getXYofPiece(cur);
+				if(spaceIsInMap(cur.captureMap, curXY[0], curXY[1], kingSpace)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks if the black king is in check
+	 * @return true if black's king is in danger
+	 */
+	public boolean blackInCheck() {
+		//find king
+		Piece king = null;
+		for(Piece p: activePieces) {
+			if(p instanceof KingPiece && p.getPlayer() == Chess.blackPlayer) {
+				king = p;
+			}
+		}
+		int[] kingXY = this.getXYofPiece(king);
+		Space kingSpace = this.getSpaceAtXY(kingXY[0], kingXY[1]);
+		//find if king in danger
+		for(Piece cur: activePieces) {
+			//check only black pieces
+			if(cur.getPlayer() != Chess.blackPlayer) {
+				int[] curXY = this.getXYofPiece(cur);
+				if(spaceIsInMap(cur.captureMap, curXY[0], curXY[1], kingSpace)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns the XY values of the passed space
+	 * @param space the space to locate
+	 * @return the XY values of the space
+	 */
+	public int[] getXYofPiece(Piece piece) {
+		for(int y = 0; y < ROWS; y++) {
+			for(int x = 0; x < COLS; x++) {
+				if(boardArray[y][x].getPiece() == piece) {
+					return new int[] {x,y}; 
+				}
+			}
+		}
+		//Should not be reached
+		return null;
 	}
 }
 
