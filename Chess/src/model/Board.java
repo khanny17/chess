@@ -89,7 +89,7 @@ public class Board {
 	}
 
 	//Returns the wrapped 2D Space array
-	public Space[][] getArray() {
+	public Space[][] getBoardArray() {
 		return boardArray;
 	}
 
@@ -144,14 +144,21 @@ public class Board {
 
 			//Test for legal move
 			if(isLegalMove(from, to)) {
-				//move "from" piece to "to" space
-				from.setPiece(null);
-				to.setPiece(fromPiece);
-				fromPiece.moved();
-				//flip player's turns
-				Chess.curPlayer = !Chess.curPlayer;
-				Chess.infoUpdater.updateTurn();
-				return true;
+				//test if puts self in check
+				if(!this.movePutsSelfInCheck(from, to)) {
+					//if its safe for the player, test if it checkmates the other player
+					
+					//move "from" piece to "to" space
+					from.setPiece(null);
+					to.setPiece(fromPiece);
+					fromPiece.moved();
+					//flip player's turns
+					Chess.curPlayer = !Chess.curPlayer;
+					Chess.infoUpdater.updateTurn();
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
@@ -210,7 +217,7 @@ public class Board {
 	 * Tests if it is legal for the piece on "from" to move to "to"
 	 * @param from the space where the piece is moving from
 	 * @param to the space the piece is moving to
-	 * @return true if it is a legal move
+	 * @return the piece it will capture, null if it is illegal
 	 */
 	private boolean isLegalMove(Space from, Space to) {
 		Piece movingPiece = from.getPiece();
@@ -362,13 +369,14 @@ public class Board {
 			}
 		}
 		int[] kingXY = this.getXYofPiece(king);
-		Space kingSpace = this.getSpaceAtXY(kingXY[0], kingXY[1]);
+		Space kingSpace = this.getSpaceAtXY(kingXY[1], kingXY[0]);
 		//find if king in danger
 		for(Piece cur: activePieces) {
 			//check only black pieces
-			if(cur.getPlayer() != Chess.whitePlayer) {
+			if(cur.getPlayer() == Chess.blackPlayer) {
 				int[] curXY = this.getXYofPiece(cur);
-				if(spaceIsInMap(cur.captureMap, curXY[0], curXY[1], kingSpace)) {
+				Space curSpace = this.getSpaceAtXY(curXY[1], curXY[0]);
+				if(this.isLegalCapture(curSpace, kingSpace) != null) {
 					return true;
 				}
 			}
@@ -389,18 +397,45 @@ public class Board {
 			}
 		}
 		int[] kingXY = this.getXYofPiece(king);
-		Space kingSpace = this.getSpaceAtXY(kingXY[0], kingXY[1]);
+		Space kingSpace = this.getSpaceAtXY(kingXY[1], kingXY[0]);
 		//find if king in danger
 		for(Piece cur: activePieces) {
-			//check only black pieces
-			if(cur.getPlayer() != Chess.blackPlayer) {
+			//check only white pieces
+			if(cur.getPlayer() == Chess.whitePlayer) {
 				int[] curXY = this.getXYofPiece(cur);
-				if(spaceIsInMap(cur.captureMap, curXY[0], curXY[1], kingSpace)) {
+				Space curSpace = this.getSpaceAtXY(curXY[1], curXY[0]);
+				if(this.isLegalCapture(curSpace, kingSpace) != null) {
 					return true;
 				}
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * tests if a move will place the mover in check
+	 * DOES NOT test if the move itself is valid
+	 * @param from the space the piece is moving from
+	 * @param to the space the piece is moving to
+	 * @return True if the player of the moving piece will put themselves in danger
+	 */
+	public boolean movePutsSelfInCheck(Space from, Space to) {
+		//move pieces without any regard for safety
+		Piece tempIgnore = to.getPiece();
+		to.setPiece(from.getPiece());
+		from.setPiece(null);
+		
+		if(to.getPiece().getPlayer() == Chess.whitePlayer) {
+			boolean result = whiteInCheck();
+			from.setPiece(to.getPiece());
+			to.setPiece(tempIgnore);
+			return result;
+		} else {
+			boolean result = blackInCheck();
+			from.setPiece(to.getPiece());
+			to.setPiece(tempIgnore);
+			return result;
+		}
 	}
 	
 	/**
