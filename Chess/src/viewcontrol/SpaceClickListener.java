@@ -2,6 +2,7 @@ package viewcontrol;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import model.CheckmateChecker;
 import model.Chess;
 
 /**
@@ -14,6 +15,9 @@ public class SpaceClickListener extends MouseAdapter {
 
 	//keeps track of the currently selected space
 	SpacePanel currentSpacePanel = null;
+	
+	CheckmateChecker whiteChecker = new CheckmateChecker(Chess.whitePlayer);
+	CheckmateChecker blackChecker = new CheckmateChecker(Chess.blackPlayer);
 
 	/**
 	 * Handles the user input via mouse
@@ -53,9 +57,16 @@ public class SpaceClickListener extends MouseAdapter {
 				currentSpacePanel.deselect();
 				currentSpacePanel = null;
 			} else if(Chess.board.move(currentSpacePanel.getSpace(), newSpacePanel.getSpace())) {
-				//we already have a piece selected, so try to move it
+				//we already have a piece selected, so move it
 				currentSpacePanel.deselect();
 				currentSpacePanel = null;
+				//check for checkmate
+				
+					whiteChecker.run();
+					
+				
+					blackChecker.run();
+				
 			}
 		}
 	}

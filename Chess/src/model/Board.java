@@ -146,8 +146,6 @@ public class Board {
 			if(isLegalMove(from, to)) {
 				//test if puts self in check
 				if(!this.movePutsSelfInCheck(from, to)) {
-					//if its safe for the player, test if it checkmates the other player
-					
 					//move "from" piece to "to" space
 					from.setPiece(null);
 					to.setPiece(fromPiece);
@@ -170,16 +168,21 @@ public class Board {
 			//Test for legal capture
 			Piece captured = isLegalCapture(from, to);
 			if(captured != null) {
-				//add captured piece to array
-				this.capturedPieces.add(captured);
-				Chess.infoUpdater.updateCaptured();
-				//move "from" piece to "to" space
-				from.setPiece(null);
-				to.setPiece(fromPiece);
-				fromPiece.moved();
-				//flip player's turns
-				Chess.curPlayer = !Chess.curPlayer;
-				return true;
+				//test if puts self in check
+				if(!this.movePutsSelfInCheck(from, to)) {
+					//add captured piece to array
+					this.capturedPieces.add(captured);
+					Chess.infoUpdater.updateCaptured();
+					//move "from" piece to "to" space
+					from.setPiece(null);
+					to.setPiece(fromPiece);
+					fromPiece.moved();
+					//flip player's turns
+					Chess.curPlayer = !Chess.curPlayer;
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
@@ -191,9 +194,9 @@ public class Board {
 	 * Tests if it is legal for the piece on "from" to capture the piece on "to"
 	 * @param from the space where the piece is moving from
 	 * @param to the space the piece is moving to
-	 * @return true if it is a legal capture
+	 * @return null if it is not a legal capture, otherwise the captured piece
 	 */
-	private Piece isLegalCapture(Space from, Space to) {
+	public Piece isLegalCapture(Space from, Space to) {
 		//If its the same player just return null. Otherwise
 		if(to.getPiece().getPlayer().equals(from.getPiece().getPlayer())) {
 			return null;
@@ -219,7 +222,7 @@ public class Board {
 	 * @param to the space the piece is moving to
 	 * @return the piece it will capture, null if it is illegal
 	 */
-	private boolean isLegalMove(Space from, Space to) {
+	public boolean isLegalMove(Space from, Space to) {
 		Piece movingPiece = from.getPiece();
 		Piece otherPiece = to.getPiece();
 
@@ -361,6 +364,7 @@ public class Board {
 	 * @return true if white's king is in danger
 	 */
 	public boolean whiteInCheck() {
+		int[] curXY;
 		//find king
 		Piece king = null;
 		for(Piece p: activePieces) {
@@ -374,10 +378,12 @@ public class Board {
 		for(Piece cur: activePieces) {
 			//check only black pieces
 			if(cur.getPlayer() == Chess.blackPlayer) {
-				int[] curXY = this.getXYofPiece(cur);
-				Space curSpace = this.getSpaceAtXY(curXY[1], curXY[0]);
-				if(this.isLegalCapture(curSpace, kingSpace) != null) {
-					return true;
+				curXY = this.getXYofPiece(cur);
+				if(curXY != null) {
+					Space curSpace = this.getSpaceAtXY(curXY[1], curXY[0]);
+					if(this.isLegalCapture(curSpace, kingSpace) != null) {
+						return true;
+					}
 				}
 			}
 		}
@@ -389,6 +395,7 @@ public class Board {
 	 * @return true if black's king is in danger
 	 */
 	public boolean blackInCheck() {
+		int[] curXY;
 		//find king
 		Piece king = null;
 		for(Piece p: activePieces) {
@@ -402,10 +409,12 @@ public class Board {
 		for(Piece cur: activePieces) {
 			//check only white pieces
 			if(cur.getPlayer() == Chess.whitePlayer) {
-				int[] curXY = this.getXYofPiece(cur);
-				Space curSpace = this.getSpaceAtXY(curXY[1], curXY[0]);
-				if(this.isLegalCapture(curSpace, kingSpace) != null) {
-					return true;
+				curXY = this.getXYofPiece(cur);
+				if(curXY != null) {
+					Space curSpace = this.getSpaceAtXY(curXY[1], curXY[0]);
+					if(this.isLegalCapture(curSpace, kingSpace) != null) {
+						return true;
+					}
 				}
 			}
 		}
