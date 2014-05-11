@@ -1,10 +1,6 @@
 package view;
 
-
-
-
 import java.awt.Component;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
@@ -15,9 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
 import javax.swing.JPanel;
-
 
 import model.Board;
 import model.Player;
@@ -50,7 +44,7 @@ public class GameFrame extends JFrame implements java.util.Observer {
 	/**
 	 * The game board played upon
 	 */
-	public Board board;
+	private Board board;
 
 	/**
 	 * The listener for player control
@@ -91,6 +85,17 @@ public class GameFrame extends JFrame implements java.util.Observer {
 		//set up File tab
 		JMenu file = new JMenu("File");
 		
+		//Button to start a new game
+		JMenuItem newGame = new JMenuItem("New Game");
+		newGame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				GameFrame.gfMain.startGame();
+			}
+		});
+
+		file.add(newGame);
+		
 		//the exit button
 		JMenuItem exit = new JMenuItem("Exit");
 		exit.addMouseListener(new MouseAdapter() {
@@ -102,20 +107,6 @@ public class GameFrame extends JFrame implements java.util.Observer {
 		
 		file.add(exit);
 		
-		/**
-		 * A button for new game, does not work
-		 */
-		JMenuItem newGame = new JMenuItem("New Game");
-		newGame.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				GameFrame.gfMain.startGame();
-			}
-		});
-
-		file.add(newGame);
-		
-
 		//set up View tab
 		JMenu view = new JMenu("View");
 		JMenuItem chatSelect = new JMenuItem("Chat");
@@ -177,18 +168,21 @@ public class GameFrame extends JFrame implements java.util.Observer {
 		gfMain = new GameFrame();
 		gfMain.pack();
 		gfMain.setVisible(true);
+		gfMain.startGame();
 	}
 	
 	/**
 	 * Starts a new two player game on the calling board
 	 */
-	public void startGame() {
+	private void startGame() {
+		this.clearFrame();
+		
 		this.board = new Board();
 		this.selector = new SpaceClickListener();
 
-		this.board.curPlayer = true;
+		this.getBoard().curPlayer = true;
 		//If you want to change it to be resizable, try component listener
-		this.boardPanel = new view.BoardPanel(this.selector, this.board);
+		this.boardPanel = new view.BoardPanel(this.selector, this.getBoard());
 		this.add(boardPanel, java.awt.BorderLayout.CENTER);
 		
 		this.whiteChecker = new CheckmateChecker(this.whitePlayer);
@@ -198,7 +192,7 @@ public class GameFrame extends JFrame implements java.util.Observer {
 		this.blackChecker.addObserver(this);
 		
 		this.infoPanel = new view.InfoPanel();
-		this.board.addObserver(this.infoPanel);
+		this.getBoard().addObserver(this.infoPanel);
 		this.whiteChecker.addObserver(this.infoPanel);
 		this.blackChecker.addObserver(this.infoPanel);
 		this.add(this.infoPanel, java.awt.BorderLayout.EAST);
@@ -208,4 +202,11 @@ public class GameFrame extends JFrame implements java.util.Observer {
 		this.setVisible(true);
 		this.setResizable(false);
 	}
+	
+	private void clearFrame() {
+		this.getContentPane().removeAll();
+	}
+
+	/* Getters 'n' Setters */
+	public Board getBoard() { return board;	}
 }

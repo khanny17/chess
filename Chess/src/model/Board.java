@@ -227,14 +227,14 @@ public class Board extends java.util.Observable{
 		if(to.getPiece().getPlayer().equals(from.getPiece().getPlayer())) {
 			return null;
 		} else {
-			int[] xy = GameFrame.getInstance().board.getXYofSpace(from);
+			int[] xy = GameFrame.getInstance().getBoard().getXYofSpace(from);
 			int fromX = xy[0];
 			int fromY = xy[1];
 
 			//get the defined possible moves for the from piece
 			HashMap<Integer,Integer> moves = from.getPiece().getCaptures();
 
-			if(GameFrame.getInstance().board.spaceIsInMap(moves, fromX, fromY, to)) {
+			if(GameFrame.getInstance().getBoard().spaceIsInMap(moves, fromX, fromY, to)) {
 				return to.getPiece();
 			} else {
 				return null;
@@ -257,14 +257,14 @@ public class Board extends java.util.Observable{
 			return false;
 		}
 
-		int[] xy = GameFrame.getInstance().board.getXYofSpace(from);
+		int[] xy = GameFrame.getInstance().getBoard().getXYofSpace(from);
 		int fromX = xy[0];
 		int fromY = xy[1];
 
 		//get the defined possible moves for the from piece
 		HashMap<Integer,Integer> moves = movingPiece.getMoves();
 
-		return GameFrame.getInstance().board.spaceIsInMap(moves, fromX, fromY, to);
+		return GameFrame.getInstance().getBoard().spaceIsInMap(moves, fromX, fromY, to);
 
 	}	
 

@@ -40,10 +40,10 @@ public class SpaceClickListener extends MouseAdapter {
 		if(currentSpacePanel == null) {
 			//If the new space is empty don't select it
 			if(newPiece != null) {
-				if(GameFrame.getInstance().board.curPlayer &&
+				if(GameFrame.getInstance().getBoard().curPlayer &&
 						newPiece.getPlayer().equals(GameFrame.getInstance().blackPlayer)) {
 					return;
-				} else if(!GameFrame.getInstance().board.curPlayer &&
+				} else if(!GameFrame.getInstance().getBoard().curPlayer &&
 						newPiece.getPlayer().equals(GameFrame.getInstance().whitePlayer)) {
 					return;
 				}
@@ -56,12 +56,12 @@ public class SpaceClickListener extends MouseAdapter {
 			if(currentSpacePanel == newSpacePanel) {
 				currentSpacePanel.deselect();
 				currentSpacePanel = null;
-			} else if(GameFrame.getInstance().board.move(currentSpacePanel.getSpace(), newSpacePanel.getSpace())) {
+			} else if(GameFrame.getInstance().getBoard().move(currentSpacePanel.getSpace(), newSpacePanel.getSpace())) {
 				//we already have a piece selected, so move it
 				currentSpacePanel.deselect();
 				currentSpacePanel = null;
 				//check for checkmate
-				if(GameFrame.getInstance().board.curPlayer) {
+				if(GameFrame.getInstance().getBoard().curPlayer) {
 					GameFrame.getInstance().whiteChecker.run();
 				} else {				
 					GameFrame.getInstance().blackChecker.run();

@@ -39,7 +39,7 @@ public class CheckmateChecker extends java.util.Observable implements java.lang.
 		Piece curPiece;
 		Space dest;
 		
-		for(Space[] curSpaceArray: GameFrame.getInstance().board.getBoardArray()) {
+		for(Space[] curSpaceArray: GameFrame.getInstance().getBoard().getBoardArray()) {
 			for(Space curSpace:curSpaceArray) {
 				curPiece = curSpace.getPiece();
 				if(curPiece != null && curPiece.getPlayer() == this.player) {
@@ -47,15 +47,15 @@ public class CheckmateChecker extends java.util.Observable implements java.lang.
 			            Integer dir = entry.getKey();
 			            Integer radius = entry.getValue();
 			            
-			            int[] xy = GameFrame.getInstance().board.getXYofSpace(curSpace);
+			            int[] xy = GameFrame.getInstance().getBoard().getXYofSpace(curSpace);
 						int fromX = xy[0];
 						int fromY = xy[1];
 						
 			            //if a move doesnt put self in check and its legal, return and do nothing
-						dest = GameFrame.getInstance().board.getSpaceFromMove(fromY, fromX, dir, radius);
+						dest = GameFrame.getInstance().getBoard().getSpaceFromMove(fromY, fromX, dir, radius);
 						if(dest != null) {
-							if(GameFrame.getInstance().board.isLegalMove(curSpace, dest) &&
-									!GameFrame.getInstance().board.movePutsSelfInCheck(curSpace,dest)) {
+							if(GameFrame.getInstance().getBoard().isLegalMove(curSpace, dest) &&
+									!GameFrame.getInstance().getBoard().movePutsSelfInCheck(curSpace,dest)) {
 			            		return;
 			            	}
 						}
@@ -65,15 +65,15 @@ public class CheckmateChecker extends java.util.Observable implements java.lang.
 						Integer dir = entry.getKey();
 			            Integer radius = entry.getValue();
 			            
-			            int[] xy = GameFrame.getInstance().board.getXYofSpace(curSpace);
+			            int[] xy = GameFrame.getInstance().getBoard().getXYofSpace(curSpace);
 						int fromX = xy[0];
 						int fromY = xy[1];
 						
 			            //if a move doesnt put self in check and its legal, return and do nothing
-						dest = GameFrame.getInstance().board.getSpaceFromMove(fromY, fromX, dir, radius);
+						dest = GameFrame.getInstance().getBoard().getSpaceFromMove(fromY, fromX, dir, radius);
 						if(dest != null && dest.getPiece() != null) {
-							if( (GameFrame.getInstance().board.isLegalCapture(curSpace, dest) != null) &&
-									!GameFrame.getInstance().board.movePutsSelfInCheck(curSpace,dest)) {
+							if( (GameFrame.getInstance().getBoard().isLegalCapture(curSpace, dest) != null) &&
+									!GameFrame.getInstance().getBoard().movePutsSelfInCheck(curSpace,dest)) {
 			            		return; //this is hit if it is not checkmate.
 			            	}
 						}
@@ -84,7 +84,7 @@ public class CheckmateChecker extends java.util.Observable implements java.lang.
 		
 		//It is checkmate!
 		setChanged();
-		notifyObservers(String.format("Checkmate, %s wins!",player.getName()));		
+		notifyObservers(String.format("Checkmate, %s loses",player.getName()));		
 		clearChanged();
 		
 	}
