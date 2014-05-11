@@ -28,8 +28,6 @@ public class Chess {
 	 */
 	public static Board board;
 	
-	public static view.InfoUpdater infoUpdater;
-	
 	/**
 	 * Loads the images of the pieces
 	 */
@@ -75,8 +73,6 @@ public class Chess {
 		
 		gameFrame.pack();
 		gameFrame.setVisible(true);
-		
-		infoUpdater = new view.InfoUpdater(board, info);
 	}
 	
 }

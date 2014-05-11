@@ -168,7 +168,6 @@ public class Board extends java.util.Observable{
 					fromPiece.moved();
 					//flip player's turns
 					Chess.curPlayer = !Chess.curPlayer;
-					Chess.infoUpdater.updateTurn();
 					this.moves.add(new Move(fromPiece,null,from,to));
 					this.setChanged();
 					this.notifyObservers();
@@ -192,7 +191,6 @@ public class Board extends java.util.Observable{
 				if(!this.movePutsSelfInCheck(from, to)) {
 					//add captured piece to array
 					this.capturedPieces.add(captured);
-					Chess.infoUpdater.updateCaptured();
 					//move "from" piece to "to" space
 					from.setPiece(null);
 					to.setPiece(fromPiece);
