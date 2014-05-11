@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Iterator;
 
+import control.Chess;
+
 /**
  * This class defines the chess board on which the game is played.
  * It keeps track of the spaces with a two dimensional array.

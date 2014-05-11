@@ -2,13 +2,15 @@ package model;
 
 import java.util.Map.Entry;
 
+import control.Chess;
+
 /**
  * Separate background thread which checks if there are any valid moves left
  *  for the player whose turn it is now
  *  
  * @author Kevin Hannigan
  */
-public class CheckmateChecker extends java.lang.Thread {
+public class CheckmateChecker extends java.util.Observable implements java.lang.Runnable {
 
 	/**
 	 * The player this checker will check for
@@ -76,7 +78,10 @@ public class CheckmateChecker extends java.lang.Thread {
 		}
 		
 		//It is checkmate!
-		System.out.println("Checkmate!");
+		System.out.println("checkmate!");
+		setChanged();
+		notifyObservers(player);
+		clearChanged();
 		
 	}
 	

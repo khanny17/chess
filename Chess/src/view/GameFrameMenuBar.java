@@ -1,7 +1,7 @@
 /**
  * 
  */
-package viewcontrol;
+package view;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,8 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import control.Chess;
 import model.Board;
-import model.Chess;
 import model.Player;
 
 

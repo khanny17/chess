@@ -1,4 +1,7 @@
-package model;
+package control;
+
+import model.Board;
+import model.Player;
 
 /**
  * The class which controls game flow
@@ -23,7 +26,7 @@ public class Chess {
 	 */
 	public static Board board;
 	
-	public static viewcontrol.InfoUpdater infoUpdater;
+	public static view.InfoUpdater infoUpdater;
 	
 	/**
 	 * Usage: java 
@@ -33,14 +36,14 @@ public class Chess {
 		board = new Board();
 		
 		curPlayer = true;
-		viewcontrol.GameFrame gameFrame = new viewcontrol.GameFrame();
-		viewcontrol.BoardPanel boardPanel = new viewcontrol.BoardPanel();
+		view.GameFrame gameFrame = new view.GameFrame();
+		view.BoardPanel boardPanel = new view.BoardPanel();
 		gameFrame.add(boardPanel);
 		
 		gameFrame.pack();
 		gameFrame.setVisible(true);
 		
-		infoUpdater = new viewcontrol.InfoUpdater(board);
+		infoUpdater = new view.InfoUpdater(board);
 	}
 	
 	

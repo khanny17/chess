@@ -7,7 +7,7 @@ package model;
  *  
  * @author Kevin Hannigan
  */
-public class Space extends java.util.Observable{
+public class Space extends java.util.Observable {
 	
 	/**
 	 * The piece which is currently on the space.

@@ -1,10 +1,11 @@
 package pieces;
 
-import model.Chess;
 import model.Piece;
 import model.Player;
 
 import java.util.HashMap;
+
+import control.Chess;
 
 public class RookPiece extends Piece {
 	

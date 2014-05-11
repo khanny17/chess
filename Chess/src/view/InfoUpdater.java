@@ -1,10 +1,10 @@
-package viewcontrol;
+package view;
 
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
 
-import model.Chess;
+import control.Chess;
 
 public class InfoUpdater 
 {

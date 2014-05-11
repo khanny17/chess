@@ -1,4 +1,4 @@
-package viewcontrol;
+package view;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -6,8 +6,9 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 
+import control.Chess;
+import control.SpaceClickListener;
 import model.Board;
-import model.Chess;
 
 
 /**

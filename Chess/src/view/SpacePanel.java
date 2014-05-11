@@ -1,4 +1,4 @@
-package viewcontrol;
+package view;
 
 import java.util.Observable;
 
@@ -67,37 +67,37 @@ public class SpacePanel extends JPanel implements java.util.Observer {
 	public void update(Observable arg0, Object arg1) {
 		Piece piece = mySpace.getPiece();
 		if(piece instanceof BishopPiece) {
-			if(piece.getPlayer().equals(model.Chess.blackPlayer)) {
+			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
 				labelImage.setIcon(BoardPanel.pieceImages.BlackBishop);
 			} else {
 				labelImage.setIcon(BoardPanel.pieceImages.WhiteBishop);
 			}	
 		} else if(piece instanceof KingPiece) {
-			if(piece.getPlayer().equals(model.Chess.blackPlayer)) {
+			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
 				labelImage.setIcon(BoardPanel.pieceImages.BlackKing);
 			} else {
 				labelImage.setIcon(BoardPanel.pieceImages.WhiteKing);
 			}	
 		} else if(piece instanceof KnightPiece) {
-			if(piece.getPlayer().equals(model.Chess.blackPlayer)) {
+			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
 				labelImage.setIcon(BoardPanel.pieceImages.BlackKnight);
 			} else {
 				labelImage.setIcon(BoardPanel.pieceImages.WhiteKnight);
 			}	
 		} else if(piece instanceof PawnPiece) {
-			if(piece.getPlayer().equals(model.Chess.blackPlayer)) {
+			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
 				labelImage.setIcon(BoardPanel.pieceImages.BlackPawn);
 			} else {
 				labelImage.setIcon(BoardPanel.pieceImages.WhitePawn);
 			}	
 		} else if(piece instanceof QueenPiece) {
-			if(piece.getPlayer().equals(model.Chess.blackPlayer)) {
+			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
 				labelImage.setIcon(BoardPanel.pieceImages.BlackQueen);
 			} else {
 				labelImage.setIcon(BoardPanel.pieceImages.WhiteQueen);
 			}	
 		} else if(piece instanceof RookPiece) {
-			if(piece.getPlayer().equals(model.Chess.blackPlayer)) {
+			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
 				labelImage.setIcon(BoardPanel.pieceImages.BlackRook);
 			} else {
 				labelImage.setIcon(BoardPanel.pieceImages.WhiteRook);

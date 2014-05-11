@@ -1,9 +1,9 @@
-package viewcontrol;
+package control;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import view.SpacePanel;
 import model.CheckmateChecker;
-import model.Chess;
 
 /**
  * Listener class used to listen for when the user clicks a space.

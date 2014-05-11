@@ -1,9 +1,9 @@
-package viewcontrol;
+package view;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import model.Chess;
+import control.Chess;
 
 public class InfoFrame  extends JFrame
 {
