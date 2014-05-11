@@ -26,6 +26,8 @@ public class Chess {
 	public static CheckmateChecker whiteChecker;
 	public static CheckmateChecker blackChecker;
 	
+	public static SpaceClickListener selector;
+	
 	/**
 	 * The game board played upon
 	 */
@@ -68,7 +70,7 @@ public class Chess {
 		
 		
 		curPlayer = true;
-		SpaceClickListener selector = new SpaceClickListener();
+		selector = new SpaceClickListener();
 		view.GameFrame gameFrame = new view.GameFrame(selector,board);
 		whiteChecker.addObserver(gameFrame);
 		blackChecker.addObserver(gameFrame);
