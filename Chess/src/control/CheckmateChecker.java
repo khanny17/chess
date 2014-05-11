@@ -1,8 +1,10 @@
-package model;
+package control;
 
 import java.util.Map.Entry;
 
-import control.Chess;
+import model.Piece;
+import model.Player;
+import model.Space;
 
 /**
  * Separate background thread which checks if there are any valid moves left

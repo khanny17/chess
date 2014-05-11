@@ -3,7 +3,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import view.SpacePanel;
-import model.CheckmateChecker;
 
 /**
  * Listener class used to listen for when the user clicks a space.
