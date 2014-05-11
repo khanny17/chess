@@ -2,6 +2,7 @@ package model;
 
 import pieces.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Iterator;
@@ -14,17 +15,19 @@ import control.Chess;
  * 
  * @author Kevin Hannigan
  */
-public class Board {
+public class Board extends java.util.Observable{
 
+	private ArrayList<Move> moves = new ArrayList<Move>();
+	
 	/**
 	 * A list of each piece that has been captured so far
 	 */
-	private java.util.ArrayList<Piece> capturedPieces;
+	private ArrayList<Piece> capturedPieces;
 
 	/**
 	 * A list of each piece on the board
 	 */
-	private java.util.ArrayList<Piece> activePieces;
+	private ArrayList<Piece> activePieces;
 	
 	/**
 	 * The array used to represent the board. The board is defined such that
@@ -41,42 +44,45 @@ public class Board {
 	 * Constructs the default game board set up for the start of the game
 	 */
 	public Board() {
-		capturedPieces = new java.util.ArrayList<Piece>();
-		activePieces = new java.util.ArrayList<Piece>();
+		capturedPieces = new ArrayList<Piece>();
+		activePieces = new ArrayList<Piece>();
 		
 		//Place the pieces
 		boardArray = new Space[ROWS][COLS];
 
 		//set up black's players
-		boardArray[0][0] = new Space(new RookPiece(Chess.blackPlayer));
-		boardArray[0][1] = new Space(new KnightPiece(Chess.blackPlayer));
-		boardArray[0][2] = new Space(new BishopPiece(Chess.blackPlayer));
-		boardArray[0][3] = new Space(new QueenPiece(Chess.blackPlayer));
-		boardArray[0][4] = new Space(new KingPiece(Chess.blackPlayer));
-		boardArray[0][5] = new Space(new BishopPiece(Chess.blackPlayer));
-		boardArray[0][6] = new Space(new KnightPiece(Chess.blackPlayer));
-		boardArray[0][7] = new Space(new RookPiece(Chess.blackPlayer));
+		boardArray[0][0] = new Space(new RookPiece(Chess.blackPlayer), "A8");
+		boardArray[0][1] = new Space(new KnightPiece(Chess.blackPlayer), "B8");
+		boardArray[0][2] = new Space(new BishopPiece(Chess.blackPlayer), "C8");
+		boardArray[0][3] = new Space(new QueenPiece(Chess.blackPlayer), "D8");
+		boardArray[0][4] = new Space(new KingPiece(Chess.blackPlayer), "E8");
+		boardArray[0][5] = new Space(new BishopPiece(Chess.blackPlayer), "F8");
+		boardArray[0][6] = new Space(new KnightPiece(Chess.blackPlayer), "G8");
+		boardArray[0][7] = new Space(new RookPiece(Chess.blackPlayer), "H8");
 		for(int col = 0; col < COLS; col++) {
-			boardArray[1][col] = new Space(new PawnPiece(Chess.blackPlayer));
+			String c = ((char)(65+col)) + "7";
+			boardArray[1][col] = new Space(new PawnPiece(Chess.blackPlayer), c);
 		}
 
 		//set up white's players
-		boardArray[7][0] = new Space(new RookPiece(Chess.whitePlayer));
-		boardArray[7][1] = new Space(new KnightPiece(Chess.whitePlayer));
-		boardArray[7][2] = new Space(new BishopPiece(Chess.whitePlayer));
-		boardArray[7][3] = new Space(new QueenPiece(Chess.whitePlayer));
-		boardArray[7][4] = new Space(new KingPiece(Chess.whitePlayer));
-		boardArray[7][5] = new Space(new BishopPiece(Chess.whitePlayer));
-		boardArray[7][6] = new Space(new KnightPiece(Chess.whitePlayer));
-		boardArray[7][7] = new Space(new RookPiece(Chess.whitePlayer));
+		boardArray[7][0] = new Space(new RookPiece(Chess.whitePlayer), "A1");
+		boardArray[7][1] = new Space(new KnightPiece(Chess.whitePlayer), "B1");
+		boardArray[7][2] = new Space(new BishopPiece(Chess.whitePlayer), "C1");
+		boardArray[7][3] = new Space(new QueenPiece(Chess.whitePlayer), "D1");
+		boardArray[7][4] = new Space(new KingPiece(Chess.whitePlayer), "E1");
+		boardArray[7][5] = new Space(new BishopPiece(Chess.whitePlayer), "F1");
+		boardArray[7][6] = new Space(new KnightPiece(Chess.whitePlayer), "G1");
+		boardArray[7][7] = new Space(new RookPiece(Chess.whitePlayer), "H1");
 		for(int col = 0; col < COLS; col++) {
-			boardArray[6][col] = new Space(new PawnPiece(Chess.whitePlayer));
+			String c = ((char)(65+col)) + "2";
+			boardArray[6][col] = new Space(new PawnPiece(Chess.whitePlayer), c);
 		}
 
 		//set up empty spaces
 		for(int row = 2; row < ROWS-2; row++) {
 			for(int col = 0; col < COLS; col++) {
-				boardArray[row][col] = new Space();
+				String c = ((char)(65+col)) + "" + (row);
+				boardArray[row][col] = new Space(c);
 			}
 		}
 
@@ -90,6 +96,14 @@ public class Board {
 		}
 	}
 
+	/**
+	 * returns the latest move
+	 * @return the move object at the end of the arraylist
+	 */
+	public Move getLastMove() {
+		return this.moves.get(moves.size()-1);
+	}
+	
 	//Returns the wrapped 2D Space array
 	public Space[][] getBoardArray() {
 		return boardArray;
@@ -155,6 +169,10 @@ public class Board {
 					//flip player's turns
 					Chess.curPlayer = !Chess.curPlayer;
 					Chess.infoUpdater.updateTurn();
+					this.moves.add(new Move(fromPiece,null,from,to));
+					this.setChanged();
+					this.notifyObservers();
+					this.clearChanged();
 					return true;
 				} else {
 					return false;
@@ -181,6 +199,10 @@ public class Board {
 					fromPiece.moved();
 					//flip player's turns
 					Chess.curPlayer = !Chess.curPlayer;
+					this.moves.add(new Move(fromPiece,captured,from,to));
+					this.setChanged();
+					this.notifyObservers();
+					this.clearChanged();
 					return true;
 				} else {
 					return false;
@@ -350,14 +372,14 @@ public class Board {
 	/**
 	 * Returns the arraylist of captured pieces
 	 */
-	public java.util.ArrayList<Piece> getCapturedPieces() {
+	public ArrayList<Piece> getCapturedPieces() {
 		return this.capturedPieces;
 	}
 	
 	/**
 	 * Returns the arraylist of active pieces
 	 */
-	public java.util.ArrayList<Piece> getActivePieces() {
+	public ArrayList<Piece> getActivePieces() {
 		return this.activePieces;
 	}
 	

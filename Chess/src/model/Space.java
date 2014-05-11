@@ -14,19 +14,25 @@ public class Space extends java.util.Observable {
 	 */
 	private Piece piece;
 
+	/**
+	 * the text coordinate of this space
+	 */
+	private String coord;
 	
 	/**
 	 * Initializes an empty space
 	 */
-	public Space() {
+	public Space(String coord) {
 		this.piece = null;
+		this.coord = coord;
 	}
 
 	/**
 	 * Initializes a space with a piece image in the middle
 	 */
-	public Space(Piece piece) {
+	public Space(Piece piece, String coord) {
 		this.piece = piece;
+		this.coord = coord;
 	}
 
 	/**
@@ -60,10 +66,7 @@ public class Space extends java.util.Observable {
 	 */
 	@Override
 	public String toString() {
-		if(piece == null) {
-			return "Coordinate: " + /*getcoordinate+ */ "\nPiece: NONE";
-		}
-		return "Coordinate: " + /*getCoordinate()+*/ "\n" + piece.toString();
+		return coord;
 	}
 	
 }

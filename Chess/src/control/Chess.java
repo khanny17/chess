@@ -41,14 +41,26 @@ public class Chess {
 	 * @param args
 	 */
 	public static void main(String args[]) {
-		//load the piece imagesshow()
-				try {
-					pieceImages = new images.Images();
-				} catch (IOException e) {
-					e.printStackTrace();
-					System.exit(-1);
-				}
+		/** Initialize classes */
 		
+		//load the piece imagesshow()
+		try {
+			pieceImages = new images.Images();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+
+		
+		startNewTwoPlayerGame();
+		
+		
+	}
+	
+	/**
+	 * Sequence of events to start a new two player game
+	 */
+	private static void startNewTwoPlayerGame() {
 		board = new Board();
 		
 		curPlayer = true;
@@ -56,14 +68,15 @@ public class Chess {
 		
 		SpaceClickListener selector = new SpaceClickListener();
 		view.BoardPanel boardPanel = new view.BoardPanel(selector, board);
-		gameFrame.add(boardPanel);
+		gameFrame.add(boardPanel, java.awt.BorderLayout.CENTER);
+		view.InfoPanel info = new view.InfoPanel();
+		board.addObserver(info);
+		gameFrame.add(info, java.awt.BorderLayout.EAST);
 		
 		gameFrame.pack();
 		gameFrame.setVisible(true);
 		
-		infoUpdater = new view.InfoUpdater(board);
+		infoUpdater = new view.InfoUpdater(board, info);
 	}
-	
-	
 	
 }

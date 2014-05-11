@@ -9,30 +9,30 @@ import control.Chess;
 public class InfoUpdater 
 {
 	private model.Board myBoard;
-	private InfoFrame myInfoFrame;
+	private InfoPanel myInfoPanel;
 	
 	private JLabel playLabel;
 	private JLabel whiteCaptured;
 	private JLabel blackCaptured;
 	
-	public InfoUpdater(model.Board board)
+	public InfoUpdater(model.Board board, InfoPanel info)
 	{
 		myBoard = board;
-		myInfoFrame = new InfoFrame();
+		this.myInfoPanel = info;
 		
 		playLabel = new JLabel();
-		myInfoFrame.add(playLabel);
+		myInfoPanel.add(playLabel);
 		playLabel.setBounds(100, 10, 200, 15);
 		playLabel.setVisible(true);
 		updateTurn();
 		
 		blackCaptured = new JLabel();
-		myInfoFrame.add(blackCaptured);
+		myInfoPanel.add(blackCaptured);
 		blackCaptured.setBounds(175, 50, 200, 15);
 		blackCaptured.setVisible(true);
 		
 		whiteCaptured = new JLabel();
-		myInfoFrame.add(whiteCaptured);
+		myInfoPanel.add(whiteCaptured);
 		whiteCaptured.setBounds(0, 50, 200, 15);
 		whiteCaptured.setVisible(true);
 		updateCaptured();
@@ -50,8 +50,10 @@ public class InfoUpdater
 		}		
 	}
 	
-	public void updateCaptured()
-	{
+	/**
+	 * Updates the info panel when a new piece is captured
+	 */
+	public void updateCaptured() {
 		ArrayList<model.Piece> allCaptured = myBoard.getCapturedPieces();
 		ArrayList<model.Piece> wCaptured = new ArrayList<model.Piece>();
 		ArrayList<model.Piece> bCaptured = new ArrayList<model.Piece>();
@@ -74,7 +76,7 @@ public class InfoUpdater
 		for(model.Piece p : wCaptured)
 		{
 			JLabel wCapLabel = new JLabel(p.toString());
-			myInfoFrame.add(wCapLabel);
+			myInfoPanel.add(wCapLabel);
 			wCapLabel.setBounds(15, y, 100, 15);
 			wCapLabel.setVisible(true);
 			y += 15;
@@ -85,7 +87,7 @@ public class InfoUpdater
 		for(model.Piece p : bCaptured)
 		{
 			JLabel bCapLabel = new JLabel(p.toString());
-			myInfoFrame.add(bCapLabel);
+			myInfoPanel.add(bCapLabel);
 			bCapLabel.setBounds(190, y, 100, 15);
 			bCapLabel.setVisible(true);
 			y += 15;
