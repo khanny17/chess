@@ -66,40 +66,40 @@ public class SpacePanel extends JPanel implements java.util.Observer {
 	public void update(Observable arg0, Object arg1) {
 		Piece piece = mySpace.getPiece();
 		if(piece instanceof BishopPiece) {
-			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
-				labelImage.setIcon(control.Chess.pieceImages.BlackBishop);
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+				labelImage.setIcon(images.Images.getInstance().BlackBishop);
 			} else {
-				labelImage.setIcon(control.Chess.pieceImages.WhiteBishop);
+				labelImage.setIcon(images.Images.getInstance().WhiteBishop);
 			}	
 		} else if(piece instanceof KingPiece) {
-			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
-				labelImage.setIcon(control.Chess.pieceImages.BlackKing);
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+				labelImage.setIcon(images.Images.getInstance().BlackKing);
 			} else {
-				labelImage.setIcon(control.Chess.pieceImages.WhiteKing);
+				labelImage.setIcon(images.Images.getInstance().WhiteKing);
 			}	
 		} else if(piece instanceof KnightPiece) {
-			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
-				labelImage.setIcon(control.Chess.pieceImages.BlackKnight);
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+				labelImage.setIcon(images.Images.getInstance().BlackKnight);
 			} else {
-				labelImage.setIcon(control.Chess.pieceImages.WhiteKnight);
+				labelImage.setIcon(images.Images.getInstance().WhiteKnight);
 			}	
 		} else if(piece instanceof PawnPiece) {
-			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
-				labelImage.setIcon(control.Chess.pieceImages.BlackPawn);
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+				labelImage.setIcon(images.Images.getInstance().BlackPawn);
 			} else {
-				labelImage.setIcon(control.Chess.pieceImages.WhitePawn);
+				labelImage.setIcon(images.Images.getInstance().WhitePawn);
 			}	
 		} else if(piece instanceof QueenPiece) {
-			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
-				labelImage.setIcon(control.Chess.pieceImages.BlackQueen);
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+				labelImage.setIcon(images.Images.getInstance().BlackQueen);
 			} else {
-				labelImage.setIcon(control.Chess.pieceImages.WhiteQueen);
+				labelImage.setIcon(images.Images.getInstance().WhiteQueen);
 			}	
 		} else if(piece instanceof RookPiece) {
-			if(piece.getPlayer().equals(control.Chess.blackPlayer)) {
-				labelImage.setIcon(control.Chess.pieceImages.BlackRook);
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+				labelImage.setIcon(images.Images.getInstance().BlackRook);
 			} else {
-				labelImage.setIcon(control.Chess.pieceImages.WhiteRook);
+				labelImage.setIcon(images.Images.getInstance().WhiteRook);
 			}	
 		} else {
 			labelImage.setIcon(null);

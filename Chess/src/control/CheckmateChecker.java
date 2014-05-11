@@ -2,6 +2,7 @@ package control;
 
 import java.util.Map.Entry;
 
+import view.GameFrame;
 import model.Piece;
 import model.Player;
 import model.Space;
@@ -38,7 +39,7 @@ public class CheckmateChecker extends java.util.Observable implements java.lang.
 		Piece curPiece;
 		Space dest;
 		
-		for(Space[] curSpaceArray: Chess.board.getBoardArray()) {
+		for(Space[] curSpaceArray: GameFrame.getInstance().board.getBoardArray()) {
 			for(Space curSpace:curSpaceArray) {
 				curPiece = curSpace.getPiece();
 				if(curPiece != null && curPiece.getPlayer() == this.player) {
@@ -46,14 +47,15 @@ public class CheckmateChecker extends java.util.Observable implements java.lang.
 			            Integer dir = entry.getKey();
 			            Integer radius = entry.getValue();
 			            
-			            int[] xy = Chess.board.getXYofSpace(curSpace);
+			            int[] xy = GameFrame.getInstance().board.getXYofSpace(curSpace);
 						int fromX = xy[0];
 						int fromY = xy[1];
 						
 			            //if a move doesnt put self in check and its legal, return and do nothing
-						dest = Chess.board.getSpaceFromMove(fromY, fromX, dir, radius);
+						dest = GameFrame.getInstance().board.getSpaceFromMove(fromY, fromX, dir, radius);
 						if(dest != null) {
-							if(Chess.board.isLegalMove(curSpace, dest) && !Chess.board.movePutsSelfInCheck(curSpace,dest)) {
+							if(GameFrame.getInstance().board.isLegalMove(curSpace, dest) &&
+									!GameFrame.getInstance().board.movePutsSelfInCheck(curSpace,dest)) {
 			            		return;
 			            	}
 						}
@@ -63,14 +65,15 @@ public class CheckmateChecker extends java.util.Observable implements java.lang.
 						Integer dir = entry.getKey();
 			            Integer radius = entry.getValue();
 			            
-			            int[] xy = Chess.board.getXYofSpace(curSpace);
+			            int[] xy = GameFrame.getInstance().board.getXYofSpace(curSpace);
 						int fromX = xy[0];
 						int fromY = xy[1];
 						
 			            //if a move doesnt put self in check and its legal, return and do nothing
-						dest = Chess.board.getSpaceFromMove(fromY, fromX, dir, radius);
+						dest = GameFrame.getInstance().board.getSpaceFromMove(fromY, fromX, dir, radius);
 						if(dest != null && dest.getPiece() != null) {
-							if( (Chess.board.isLegalCapture(curSpace, dest) != null) && !Chess.board.movePutsSelfInCheck(curSpace,dest)) {
+							if( (GameFrame.getInstance().board.isLegalCapture(curSpace, dest) != null) &&
+									!GameFrame.getInstance().board.movePutsSelfInCheck(curSpace,dest)) {
 			            		return; //this is hit if it is not checkmate.
 			            	}
 						}

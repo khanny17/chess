@@ -1,13 +1,12 @@
 package model;
 
 import pieces.*;
+import view.GameFrame;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Iterator;
-
-import control.Chess;
 
 /**
  * This class defines the chess board on which the game is played.
@@ -37,6 +36,11 @@ public class Board extends java.util.Observable{
 	 */
 	private Space[][] boardArray;
 
+	/**
+	 * curPlayeris true if white is going, false if black is going
+	 */
+	public boolean curPlayer;
+
 	public static final int ROWS = 8;
 	public static final int COLS = 8;
 
@@ -51,31 +55,31 @@ public class Board extends java.util.Observable{
 		boardArray = new Space[ROWS][COLS];
 
 		//set up black's players
-		boardArray[0][0] = new Space(new RookPiece(Chess.blackPlayer), "A8");
-		boardArray[0][1] = new Space(new KnightPiece(Chess.blackPlayer), "B8");
-		boardArray[0][2] = new Space(new BishopPiece(Chess.blackPlayer), "C8");
-		boardArray[0][3] = new Space(new QueenPiece(Chess.blackPlayer), "D8");
-		boardArray[0][4] = new Space(new KingPiece(Chess.blackPlayer), "E8");
-		boardArray[0][5] = new Space(new BishopPiece(Chess.blackPlayer), "F8");
-		boardArray[0][6] = new Space(new KnightPiece(Chess.blackPlayer), "G8");
-		boardArray[0][7] = new Space(new RookPiece(Chess.blackPlayer), "H8");
+		boardArray[0][0] = new Space(new RookPiece(GameFrame.getInstance().blackPlayer), "A8");
+		boardArray[0][1] = new Space(new KnightPiece(GameFrame.getInstance().blackPlayer), "B8");
+		boardArray[0][2] = new Space(new BishopPiece(GameFrame.getInstance().blackPlayer), "C8");
+		boardArray[0][3] = new Space(new QueenPiece(GameFrame.getInstance().blackPlayer), "D8");
+		boardArray[0][4] = new Space(new KingPiece(GameFrame.getInstance().blackPlayer), "E8");
+		boardArray[0][5] = new Space(new BishopPiece(GameFrame.getInstance().blackPlayer), "F8");
+		boardArray[0][6] = new Space(new KnightPiece(GameFrame.getInstance().blackPlayer), "G8");
+		boardArray[0][7] = new Space(new RookPiece(GameFrame.getInstance().blackPlayer), "H8");
 		for(int col = 0; col < COLS; col++) {
 			String c = ((char)(65+col)) + "7";
-			boardArray[1][col] = new Space(new PawnPiece(Chess.blackPlayer), c);
+			boardArray[1][col] = new Space(new PawnPiece(GameFrame.getInstance().blackPlayer), c);
 		}
 
 		//set up white's players
-		boardArray[7][0] = new Space(new RookPiece(Chess.whitePlayer), "A1");
-		boardArray[7][1] = new Space(new KnightPiece(Chess.whitePlayer), "B1");
-		boardArray[7][2] = new Space(new BishopPiece(Chess.whitePlayer), "C1");
-		boardArray[7][3] = new Space(new QueenPiece(Chess.whitePlayer), "D1");
-		boardArray[7][4] = new Space(new KingPiece(Chess.whitePlayer), "E1");
-		boardArray[7][5] = new Space(new BishopPiece(Chess.whitePlayer), "F1");
-		boardArray[7][6] = new Space(new KnightPiece(Chess.whitePlayer), "G1");
-		boardArray[7][7] = new Space(new RookPiece(Chess.whitePlayer), "H1");
+		boardArray[7][0] = new Space(new RookPiece(GameFrame.getInstance().whitePlayer), "A1");
+		boardArray[7][1] = new Space(new KnightPiece(GameFrame.getInstance().whitePlayer), "B1");
+		boardArray[7][2] = new Space(new BishopPiece(GameFrame.getInstance().whitePlayer), "C1");
+		boardArray[7][3] = new Space(new QueenPiece(GameFrame.getInstance().whitePlayer), "D1");
+		boardArray[7][4] = new Space(new KingPiece(GameFrame.getInstance().whitePlayer), "E1");
+		boardArray[7][5] = new Space(new BishopPiece(GameFrame.getInstance().whitePlayer), "F1");
+		boardArray[7][6] = new Space(new KnightPiece(GameFrame.getInstance().whitePlayer), "G1");
+		boardArray[7][7] = new Space(new RookPiece(GameFrame.getInstance().whitePlayer), "H1");
 		for(int col = 0; col < COLS; col++) {
 			String c = ((char)(65+col)) + "2";
-			boardArray[6][col] = new Space(new PawnPiece(Chess.whitePlayer), c);
+			boardArray[6][col] = new Space(new PawnPiece(GameFrame.getInstance().whitePlayer), c);
 		}
 
 		//set up empty spaces
@@ -167,7 +171,7 @@ public class Board extends java.util.Observable{
 					to.setPiece(fromPiece);
 					fromPiece.moved();
 					//flip player's turns
-					Chess.curPlayer = !Chess.curPlayer;
+					curPlayer = !curPlayer;
 					this.moves.add(new Move(fromPiece,null,from,to));
 					this.setChanged();
 					this.notifyObservers();
@@ -196,7 +200,7 @@ public class Board extends java.util.Observable{
 					to.setPiece(fromPiece);
 					fromPiece.moved();
 					//flip player's turns
-					Chess.curPlayer = !Chess.curPlayer;
+					curPlayer = !curPlayer;
 					this.moves.add(new Move(fromPiece,captured,from,to));
 					this.setChanged();
 					this.notifyObservers();
@@ -223,14 +227,14 @@ public class Board extends java.util.Observable{
 		if(to.getPiece().getPlayer().equals(from.getPiece().getPlayer())) {
 			return null;
 		} else {
-			int[] xy = Chess.board.getXYofSpace(from);
+			int[] xy = GameFrame.getInstance().board.getXYofSpace(from);
 			int fromX = xy[0];
 			int fromY = xy[1];
 
 			//get the defined possible moves for the from piece
 			HashMap<Integer,Integer> moves = from.getPiece().getCaptures();
 
-			if(Chess.board.spaceIsInMap(moves, fromX, fromY, to)) {
+			if(GameFrame.getInstance().board.spaceIsInMap(moves, fromX, fromY, to)) {
 				return to.getPiece();
 			} else {
 				return null;
@@ -253,14 +257,14 @@ public class Board extends java.util.Observable{
 			return false;
 		}
 
-		int[] xy = Chess.board.getXYofSpace(from);
+		int[] xy = GameFrame.getInstance().board.getXYofSpace(from);
 		int fromX = xy[0];
 		int fromY = xy[1];
 
 		//get the defined possible moves for the from piece
 		HashMap<Integer,Integer> moves = movingPiece.getMoves();
 
-		return Chess.board.spaceIsInMap(moves, fromX, fromY, to);
+		return GameFrame.getInstance().board.spaceIsInMap(moves, fromX, fromY, to);
 
 	}	
 
@@ -390,7 +394,7 @@ public class Board extends java.util.Observable{
 		//find king
 		Piece king = null;
 		for(Piece p: activePieces) {
-			if(p instanceof KingPiece && p.getPlayer() == Chess.whitePlayer) {
+			if(p instanceof KingPiece && p.getPlayer() == GameFrame.getInstance().whitePlayer) {
 				king = p;
 			}
 		}
@@ -399,7 +403,7 @@ public class Board extends java.util.Observable{
 		//find if king in danger
 		for(Piece cur: activePieces) {
 			//check only black pieces
-			if(cur.getPlayer() == Chess.blackPlayer) {
+			if(cur.getPlayer() == GameFrame.getInstance().blackPlayer) {
 				curXY = this.getXYofPiece(cur);
 				if(curXY != null) {
 					Space curSpace = this.getSpaceAtXY(curXY[1], curXY[0]);
@@ -421,7 +425,7 @@ public class Board extends java.util.Observable{
 		//find king
 		Piece king = null;
 		for(Piece p: activePieces) {
-			if(p instanceof KingPiece && p.getPlayer() == Chess.blackPlayer) {
+			if(p instanceof KingPiece && p.getPlayer() == GameFrame.getInstance().blackPlayer) {
 				king = p;
 			}
 		}
@@ -430,7 +434,7 @@ public class Board extends java.util.Observable{
 		//find if king in danger
 		for(Piece cur: activePieces) {
 			//check only white pieces
-			if(cur.getPlayer() == Chess.whitePlayer) {
+			if(cur.getPlayer() == GameFrame.getInstance().whitePlayer) {
 				curXY = this.getXYofPiece(cur);
 				if(curXY != null) {
 					Space curSpace = this.getSpaceAtXY(curXY[1], curXY[0]);
@@ -456,7 +460,7 @@ public class Board extends java.util.Observable{
 		to.setPiece(from.getPiece());
 		from.setPiece(null);
 		
-		if(to.getPiece().getPlayer() == Chess.whitePlayer) {
+		if(to.getPiece().getPlayer() == GameFrame.getInstance().whitePlayer) {
 			boolean result = whiteInCheck();
 			from.setPiece(to.getPiece());
 			to.setPiece(tempIgnore);

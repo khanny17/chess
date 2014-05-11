@@ -5,7 +5,7 @@ import model.Player;
 
 import java.util.HashMap;
 
-import control.Chess;
+import view.GameFrame;
 
 public class KnightPiece extends Piece {
 	
@@ -19,7 +19,7 @@ public class KnightPiece extends Piece {
 	}
 	
 	public String toString() {
-		String myplayer = (getPlayer() == Chess.whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer() == GameFrame.getInstance().whitePlayer) ? "White" : "Black";
 		return myplayer + " Knight";
 	}
 

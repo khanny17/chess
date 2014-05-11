@@ -5,7 +5,7 @@ import model.Player;
 
 import java.util.HashMap;
 
-import control.Chess;
+import view.GameFrame;
 
 public class PawnPiece extends Piece {
 
@@ -19,7 +19,7 @@ public class PawnPiece extends Piece {
 	}
 
 	public String toString() {
-		String myplayer = (getPlayer() == Chess.whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer() == GameFrame.getInstance().whitePlayer) ? "White" : "Black";
 		return myplayer + " Pawn";
 	}
 
@@ -33,13 +33,13 @@ public class PawnPiece extends Piece {
 	@Override
 	protected void defineMoves() {
 		this.moveMap = new HashMap<Integer,Integer>();
-		if(getPlayer().equals(Chess.whitePlayer)) {
+		if(getPlayer().equals(GameFrame.getInstance().whitePlayer)) {
 			if(!hasMoved) {
 				moveMap.put(90, 2);
 			} else {
 				moveMap.put(90, 1);
 			}
-		} else if(getPlayer().equals(Chess.blackPlayer)) {
+		} else if(getPlayer().equals(GameFrame.getInstance().blackPlayer)) {
 			if(!hasMoved) {
 				moveMap.put(270, 2);
 			} else {
@@ -56,10 +56,10 @@ public class PawnPiece extends Piece {
 	@Override
 	protected void defineCaptures() {
 		this.captureMap = new HashMap<Integer,Integer>();
-		if(getPlayer().equals(Chess.whitePlayer)) {
+		if(getPlayer().equals(GameFrame.getInstance().whitePlayer)) {
 			captureMap.put(45,1);
 			captureMap.put(135,1);
-		} else if(getPlayer().equals(Chess.blackPlayer)) {
+		} else if(getPlayer().equals(GameFrame.getInstance().blackPlayer)) {
 			captureMap.put(225,1);
 			captureMap.put(315,1);
 		}

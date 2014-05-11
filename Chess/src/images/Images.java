@@ -1,16 +1,19 @@
 package images;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
- * Loads the images of the pieces for quick access
+ * Singleton which loads the images of the pieces for quick access
  * @author Kevin Hannigan
  */
 public class Images {
-
+	//the single instantiation of the class
+	private static Images images = null;
+	
 	public  final  ImageIcon BlackBishop;
 	public  final  ImageIcon BlackQueen;
 	public  final  ImageIcon BlackRook;
@@ -25,7 +28,7 @@ public class Images {
 	public  final  ImageIcon WhiteKnight;
 	public  final  ImageIcon WhiteKing;
 	
-	public Images() throws java.io.IOException {
+	private Images() throws java.io.IOException {
 		              
 			BlackQueen = new ImageIcon(ImageIO.read(new File("src/images/queen_black.png")));
 			BlackBishop = new ImageIcon(ImageIO.read(new File("src/images/bishop_black.png")));
@@ -41,6 +44,18 @@ public class Images {
 			WhiteKnight = new ImageIcon(ImageIO.read(new File("src/images/knight_white.png")));
 			WhiteKing = new ImageIcon(ImageIO.read(new File("src/images/king_white.png")));
 		
+	}
+	
+	public static Images getInstance() {
+		if(images == null) {
+			try {
+				images = new images.Images();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(-1);
+			}
+		}
+		return images;
 	}
 	
 }
