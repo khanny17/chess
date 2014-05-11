@@ -5,9 +5,15 @@ package model;
  * 
  * @author Kevin Hannigan
  */
-public enum Player {
+public class Player {
 	
-	HumanPlayer(),
-	ComputerPlayer();
+	String name;
+	
+	public Player(String name) {
+		this.name = name;
+	}
 
+	public String getName() {
+		return name;
+	}
 }

@@ -37,11 +37,7 @@ public class GameFrame extends JFrame implements java.util.Observer {
 	 */
 	@Override
 	public void update(Observable arg0, Object winner) {
-		if(winner.equals(Chess.whitePlayer)) {
-				System.out.println("white wins!");
-		} else {
-			System.out.println("black wins!");
-		}
+		
 		
 	}
 	

@@ -15,8 +15,6 @@ public class SpaceClickListener extends MouseAdapter {
 	//keeps track of the currently selected space
 	SpacePanel currentSpacePanel = null;
 	
-	CheckmateChecker whiteChecker = new CheckmateChecker(Chess.whitePlayer);
-	CheckmateChecker blackChecker = new CheckmateChecker(Chess.blackPlayer);
 
 	/**
 	 * Handles the user input via mouse
@@ -61,10 +59,10 @@ public class SpaceClickListener extends MouseAdapter {
 				currentSpacePanel = null;
 				//check for checkmate
 				
-					whiteChecker.run();
+					Chess.whiteChecker.run();
 					
 				
-					blackChecker.run();
+					Chess.blackChecker.run();
 				
 			}
 		}

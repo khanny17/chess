@@ -37,8 +37,8 @@ public class GameFrameMenuBar extends JMenuBar {
                         JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                         null, new String[]{"White","Black"},"White");
 				if(numPlayerResponse != 56) {
-					Chess.blackPlayer = Player.HumanPlayer;
-					Chess.whitePlayer = Player.HumanPlayer;
+					Chess.blackPlayer = new Player("Black Player");
+					Chess.whitePlayer = new Player("White Player");
 				}
 				Chess.board = new Board();
 			}

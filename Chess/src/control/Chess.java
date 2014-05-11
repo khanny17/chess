@@ -20,8 +20,11 @@ public class Chess {
 	/**
 	 * The 2 players of the current game
 	 */
-	public static Player whitePlayer = Player.HumanPlayer;
-	public static Player blackPlayer = Player.ComputerPlayer;
+	public static Player whitePlayer = new Player("White Player");
+	public static Player blackPlayer = new Player("Black Player");
+	
+	public static CheckmateChecker whiteChecker;
+	public static CheckmateChecker blackChecker;
 	
 	/**
 	 * The game board played upon
@@ -58,8 +61,11 @@ public class Chess {
 	/**
 	 * Sequence of events to start a new two player game
 	 */
-	private static void startNewTwoPlayerGame() {
+	private static void startNewTwoPlayerGame() {		
 		board = new Board();
+		whiteChecker = new CheckmateChecker(Chess.whitePlayer);
+		blackChecker = new CheckmateChecker(Chess.blackPlayer);
+		
 		
 		curPlayer = true;
 		view.GameFrame gameFrame = new view.GameFrame();
@@ -69,6 +75,8 @@ public class Chess {
 		gameFrame.add(boardPanel, java.awt.BorderLayout.CENTER);
 		view.InfoPanel info = new view.InfoPanel();
 		board.addObserver(info);
+		whiteChecker.addObserver(info);
+		blackChecker.addObserver(info);
 		gameFrame.add(info, java.awt.BorderLayout.EAST);
 		
 		gameFrame.pack();

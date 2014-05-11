@@ -5,6 +5,8 @@ import java.util.Observable;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import control.Chess;
+
 /**
  * Displays output during the game
  * @author Nick Monteleone & Kevin Hannigan
@@ -40,9 +42,14 @@ public class InfoPanel extends javax.swing.JPanel implements java.util.Observer 
 	@Override
 	public void update(Observable caller, Object arg1) {
 		if(caller instanceof model.Board) {
-			System.out.println( ((model.Board)caller).getLastMove().toString() );
 			String newLine = ((model.Board)caller).getLastMove().toString()+'\n';
 			this.textArea.append( newLine );
+		} else if(caller instanceof control.CheckmateChecker) {
+			if(caller.equals(Chess.whiteChecker)) {
+				textArea.append( arg1.toString() );
+			} else {
+				textArea.append( arg1.toString() );
+			}
 		}
 	}
 	

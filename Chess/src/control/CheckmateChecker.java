@@ -80,9 +80,8 @@ public class CheckmateChecker extends java.util.Observable implements java.lang.
 		}
 		
 		//It is checkmate!
-		System.out.println("checkmate!");
 		setChanged();
-		notifyObservers(player);
+		notifyObservers(String.format("Checkmate, %s wins!",player.getName()));		
 		clearChanged();
 		
 	}
