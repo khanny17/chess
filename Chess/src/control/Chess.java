@@ -68,11 +68,11 @@ public class Chess {
 		
 		
 		curPlayer = true;
-		view.GameFrame gameFrame = new view.GameFrame();
-		
 		SpaceClickListener selector = new SpaceClickListener();
-		view.BoardPanel boardPanel = new view.BoardPanel(selector, board);
-		gameFrame.add(boardPanel, java.awt.BorderLayout.CENTER);
+		view.GameFrame gameFrame = new view.GameFrame(selector,board);
+		whiteChecker.addObserver(gameFrame);
+		blackChecker.addObserver(gameFrame);
+		
 		view.InfoPanel info = new view.InfoPanel();
 		board.addObserver(info);
 		whiteChecker.addObserver(info);
