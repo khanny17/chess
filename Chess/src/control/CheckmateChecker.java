@@ -84,7 +84,7 @@ public class CheckmateChecker extends java.util.Observable implements java.lang.
 		
 		//It is checkmate!
 		setChanged();
-		notifyObservers(String.format("Checkmate, %s loses",player.getName()));		
+		notifyObservers(String.format("Checkmate, %s loses" + '\n',player.getName()));		
 		clearChanged();
 		
 	}

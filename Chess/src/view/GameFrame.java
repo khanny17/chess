@@ -112,12 +112,21 @@ public class GameFrame extends JFrame implements java.util.Observer {
 		JMenuItem chatSelect = new JMenuItem("Chat");
 
 		chatSelect.addMouseListener(new MouseAdapter() {
+			private boolean removing = true;
+			
 			/**
 			 * Handles the user input via mouse
 			 */
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				GameFrame.this.remove(infoPanel);
+				if(removing) {
+					GameFrame.this.remove(GameFrame.this.infoPanel);
+				} else {
+					GameFrame.this.add(GameFrame.this.infoPanel, java.awt.BorderLayout.EAST);
+				}
+				removing = !removing;
+				GameFrame.this.repaint();
+				GameFrame.this.pack();
 			}
 		});
 
@@ -146,25 +155,6 @@ public class GameFrame extends JFrame implements java.util.Observer {
 	
 	public static void main(String args[]) {
 		/** Initialize classes */
-		
-		
-/*
-		
-		gfMain = new view.GameFrame(new SpaceClickListener(),new Board());
-		
-		gfMain.whiteChecker = new CheckmateChecker(GameFrame.getInstance().whitePlayer);
-		gfMain.blackChecker = new CheckmateChecker(GameFrame.getInstance().blackPlayer);
-		
-		GameFrame.getInstance().whiteChecker.addObserver(gfMain);
-		GameFrame.getInstance().blackChecker.addObserver(gfMain);
-		
-		gfMain.infoPanel = new view.InfoPanel();
-		GameFrame.getInstance().board.addObserver(gfMain.infoPanel);
-		GameFrame.getInstance().whiteChecker.addObserver(gfMain.infoPanel);
-		GameFrame.getInstance().blackChecker.addObserver(gfMain.infoPanel);
-		gfMain.add(gfMain.infoPanel, java.awt.BorderLayout.EAST);
-		
-*/		
 		gfMain = new GameFrame();
 		gfMain.pack();
 		gfMain.setVisible(true);
