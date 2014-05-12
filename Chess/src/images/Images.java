@@ -1,10 +1,10 @@
 package images;
 
-import java.io.File;
+import java.awt.Toolkit;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+
 
 /**
  * Singleton which loads the images of the pieces for quick access
@@ -30,19 +30,19 @@ public class Images {
 	
 	private Images() throws java.io.IOException {
 		              
-			BlackQueen = new ImageIcon(ImageIO.read(new File("src/images/queen_black.png")));
-			BlackBishop = new ImageIcon(ImageIO.read(new File("src/images/bishop_black.png")));
-			BlackRook = new ImageIcon(ImageIO.read(new File("src/images/rook_black.png")));
-			BlackPawn = new ImageIcon(ImageIO.read(new File("src/images/pawn_black.png")));
-			BlackKnight = new ImageIcon(ImageIO.read(new File("src/images/knight_black.png")));
-			BlackKing = new ImageIcon(ImageIO.read(new File("src/images/king_black.png")));
+			BlackQueen = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/bishop_black.png")));
+			BlackBishop = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/queen_black.png")));
+			BlackRook = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/rook_black.png")));
+			BlackPawn = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/pawn_black.png")));
+			BlackKnight = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/knight_black.png")));
+			BlackKing = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/king_black.png")));
 
-			WhiteQueen = new ImageIcon(ImageIO.read(new File("src/images/queen_white.png")));
-			WhiteBishop = new ImageIcon(ImageIO.read(new File("src/images/bishop_white.png")));
-			WhiteRook = new ImageIcon(ImageIO.read(new File("src/images/rook_white.png")));
-			WhitePawn = new ImageIcon(ImageIO.read(new File("src/images/pawn_white.png")));
-			WhiteKnight = new ImageIcon(ImageIO.read(new File("src/images/knight_white.png")));
-			WhiteKing = new ImageIcon(ImageIO.read(new File("src/images/king_white.png")));
+			WhiteQueen = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/queen_white.png")));
+			WhiteBishop = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/bishop_white.png")));
+			WhiteRook = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/rook_white.png")));
+			WhitePawn = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/pawn_white.png")));
+			WhiteKnight = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/knight_white.png")));
+			WhiteKing = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/king_white.png")));
 		
 	}
 	
