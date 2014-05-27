@@ -30,8 +30,8 @@ public class Images {
 	
 	private Images() throws java.io.IOException {
 		              
-			BlackQueen = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/bishop_black.png")));
-			BlackBishop = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/queen_black.png")));
+			BlackBishop = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/bishop_black.png")));
+			BlackQueen = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/queen_black.png")));
 			BlackRook = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/rook_black.png")));
 			BlackPawn = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/pawn_black.png")));
 			BlackKnight = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/knight_black.png")));
