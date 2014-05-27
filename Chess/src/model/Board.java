@@ -181,7 +181,7 @@ public class Board extends java.util.Observable{
 					return false;
 				}
 			} else {
-				return false;
+				return castle(from,to);
 			}
 
 		} else { 
@@ -213,6 +213,101 @@ public class Board extends java.util.Observable{
 				return false;
 			}
 
+		}
+	}
+	
+	/**
+	 * SPECIAL CASE
+	 * Checks if the move is a castle and performs the move if so
+	 * @param from the space moving
+	 * @param to the space moving to
+	 * @return
+	 */
+	private boolean castle(Space from, Space to) {
+		boolean success = false;
+		Space other = null;
+		Piece otherPiece = null;
+		Space rookdest = null;
+		//if piece is a king and hasnt moved
+		if(from.getPiece() instanceof KingPiece && !(from.getPiece().didMove())) {
+			//test if puts self in check
+			if(!this.movePutsSelfInCheck(from, to)) {
+				if(from.getPiece().getPlayer() == GameFrame.getInstance().whitePlayer) {
+					//test which space was clicked
+					if(to == getSpaceAtXY(7,2)) {
+						//the left side
+						other = getSpaceAtXY(7,0);
+						otherPiece = other.getPiece();
+						if(!otherPiece.didMove()) {
+							//if other didnt move, will be rook anywyas dont bother checking
+							rookdest = getSpaceAtXY(7,3);
+							if(getSpaceAtXY(7,1).isEmpty() && to.isEmpty() && rookdest.isEmpty()) {
+								//everythings in order, do it!
+								success = true;								
+							}
+						}
+					} else if(to == getSpaceAtXY(7,6)) {
+						//the right side
+						other = getSpaceAtXY(7,7);
+						otherPiece = other.getPiece();
+						if(!otherPiece.didMove()) {
+							//if other didnt move, will be rook anywyas dont bother checking
+							rookdest = getSpaceAtXY(7,5);
+							if(to.isEmpty() && rookdest.isEmpty()) {
+								//everythings in order, do it!
+								success = true;								
+							}
+						}
+					}
+				} else {
+					//test which space was clicked
+					if(to == getSpaceAtXY(0,2)) {
+						//the left side
+						other = getSpaceAtXY(0,0);
+						otherPiece = other.getPiece();
+						if(!otherPiece.didMove()) {
+							//if other didnt move, will be rook anywyas dont bother checking
+							rookdest = getSpaceAtXY(0,3);
+							if(getSpaceAtXY(0,1).isEmpty() && to.isEmpty() && rookdest.isEmpty()) {
+								//everythings in order, do it!
+								success = true;								
+							}
+						}
+					} else if(to == getSpaceAtXY(0,6)) {
+						//the right side
+						other = getSpaceAtXY(0,7);
+						otherPiece = other.getPiece();
+						if(!otherPiece.didMove()) {
+							//if other didnt move, will be rook anywyas dont bother checking
+							rookdest = getSpaceAtXY(0,5);
+							if(to.isEmpty() && rookdest.isEmpty()) {
+								//everythings in order, do it!
+								success = true;								
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		if(success) {
+			//move "from" piece to "to" space
+			to.setPiece(from.getPiece());
+			to.getPiece().moved();
+			from.setPiece(null);
+			//move the rook
+			other.setPiece(null);
+			rookdest.setPiece(otherPiece);
+			otherPiece.moved();
+			//flip player's turns
+			curPlayer = !curPlayer;
+			this.moves.add(new Move(to.getPiece(),null,from,to));
+			this.setChanged();
+			this.notifyObservers();
+			this.clearChanged();
+			return true;
+		} else {
+			return false;
 		}
 	}
 
