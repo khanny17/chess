@@ -1,7 +1,6 @@
 package model;
 
 import pieces.*;
-import view.GameFrame;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,9 +43,9 @@ public class Board extends java.util.Observable{
 	/**
 	 * The 2 players of the current game
 	 */
-	public Player whitePlayer = new Player("White Player");
+	public Player whitePlayer = new Player("White Player",true);
 
-	public Player blackPlayer = new Player("Black Player");
+	public Player blackPlayer = new Player("Black Player",false);
 
 	public static final int ROWS = 8;
 	public static final int COLS = 8;
@@ -239,7 +238,7 @@ public class Board extends java.util.Observable{
 		if(from.getPiece() instanceof KingPiece && !(from.getPiece().didMove())) {
 			//test if puts self in check
 			if(!this.movePutsSelfInCheck(from, to)) {
-				if(from.getPiece().getPlayer() == this.whitePlayer) {
+				if(from.getPiece().getPlayer().getSide()) {
 					//test which space was clicked
 					if(to == getSpaceAtXY(7,2)) {
 						//the left side
@@ -329,14 +328,14 @@ public class Board extends java.util.Observable{
 		if(to.getPiece().getPlayer().equals(from.getPiece().getPlayer())) {
 			return null;
 		} else {
-			int[] xy = GameFrame.getInstance().getBoard().getXYofSpace(from);
+			int[] xy = this.getXYofSpace(from);
 			int fromX = xy[0];
 			int fromY = xy[1];
 
 			//get the defined possible moves for the from piece
 			HashMap<Integer,Integer> moves = from.getPiece().getCaptures();
 
-			if(GameFrame.getInstance().getBoard().spaceIsInMap(moves, fromX, fromY, to)) {
+			if(this.spaceIsInMap(moves, fromX, fromY, to)) {
 				return to.getPiece();
 			} else {
 				return null;
@@ -359,14 +358,14 @@ public class Board extends java.util.Observable{
 			return false;
 		}
 
-		int[] xy = GameFrame.getInstance().getBoard().getXYofSpace(from);
+		int[] xy = this.getXYofSpace(from);
 		int fromX = xy[0];
 		int fromY = xy[1];
 
 		//get the defined possible moves for the from piece
 		HashMap<Integer,Integer> moves = movingPiece.getMoves();
 
-		return GameFrame.getInstance().getBoard().spaceIsInMap(moves, fromX, fromY, to);
+		return this.spaceIsInMap(moves, fromX, fromY, to);
 
 	}	
 
@@ -496,7 +495,7 @@ public class Board extends java.util.Observable{
 		//find king
 		Piece king = null;
 		for(Piece p: activePieces) {
-			if(p instanceof KingPiece && p.getPlayer() == this.whitePlayer) {
+			if(p instanceof KingPiece && p.getPlayer().getSide()) {
 				king = p;
 			}
 		}
@@ -536,7 +535,7 @@ public class Board extends java.util.Observable{
 		//find if king in danger
 		for(Piece cur: activePieces) {
 			//check only white pieces
-			if(cur.getPlayer() == this.whitePlayer) {
+			if(cur.getPlayer().getSide()) {
 				curXY = this.getXYofPiece(cur);
 				if(curXY != null) {
 					Space curSpace = this.getSpaceAtXY(curXY[1], curXY[0]);
@@ -562,7 +561,7 @@ public class Board extends java.util.Observable{
 		to.setPiece(from.getPiece());
 		from.setPiece(null);
 		
-		if(to.getPiece().getPlayer() == this.whitePlayer) {
+		if(to.getPiece().getPlayer().getSide()) {
 			boolean result = whiteInCheck();
 			from.setPiece(to.getPiece());
 			to.setPiece(tempIgnore);

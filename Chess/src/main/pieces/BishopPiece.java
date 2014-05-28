@@ -5,7 +5,6 @@ import model.Player;
 
 import java.util.HashMap;
 
-import view.GameFrame;
 
 public class BishopPiece extends Piece {
 
@@ -19,7 +18,7 @@ public class BishopPiece extends Piece {
 	}
 	
 	public String toString() {
-		String myplayer = (getPlayer() == GameFrame.getInstance().getBoard().whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer().getSide()) ? "White" : "Black";
 		return myplayer + " Bishop";
 	}
 	

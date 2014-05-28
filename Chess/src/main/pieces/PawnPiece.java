@@ -5,8 +5,6 @@ import model.Player;
 
 import java.util.HashMap;
 
-import view.GameFrame;
-
 public class PawnPiece extends Piece {
 
 	/**
@@ -19,7 +17,7 @@ public class PawnPiece extends Piece {
 	}
 
 	public String toString() {
-		String myplayer = (getPlayer() == GameFrame.getInstance().getBoard().whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer().getSide()) ? "White" : "Black";
 		return myplayer + " Pawn";
 	}
 
@@ -33,7 +31,7 @@ public class PawnPiece extends Piece {
 	@Override
 	protected void defineMoves() {
 		this.moveMap = new HashMap<Integer,Integer>();
-		if(getPlayer().equals(GameFrame.getInstance().getBoard().whitePlayer)) {
+		if(getPlayer().getSide()) {
 			if(!hasMoved) {
 				moveMap.put(90, 2);
 			} else {
@@ -56,7 +54,7 @@ public class PawnPiece extends Piece {
 	@Override
 	protected void defineCaptures() {
 		this.captureMap = new HashMap<Integer,Integer>();
-		if(getPlayer().equals(GameFrame.getInstance().getBoard().whitePlayer)) {
+		if(getPlayer().getSide()) {
 			captureMap.put(45,1);
 			captureMap.put(135,1);
 		} else {

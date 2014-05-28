@@ -53,6 +53,8 @@ public abstract class Piece {
 	
 	public void moved() {
 		hasMoved = true;
+		this.defineMoves();
+		this.defineCaptures();
 	}
 	
 	/**
