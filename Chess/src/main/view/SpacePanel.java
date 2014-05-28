@@ -66,37 +66,37 @@ public class SpacePanel extends JPanel implements java.util.Observer {
 	public void update(Observable arg0, Object arg1) {
 		Piece piece = mySpace.getPiece();
 		if(piece instanceof BishopPiece) {
-			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().getBoard().blackPlayer)) {
 				labelImage.setIcon(images.Images.getInstance().BlackBishop);
 			} else {
 				labelImage.setIcon(images.Images.getInstance().WhiteBishop);
 			}	
 		} else if(piece instanceof KingPiece) {
-			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().getBoard().blackPlayer)) {
 				labelImage.setIcon(images.Images.getInstance().BlackKing);
 			} else {
 				labelImage.setIcon(images.Images.getInstance().WhiteKing);
 			}	
 		} else if(piece instanceof KnightPiece) {
-			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().getBoard().blackPlayer)) {
 				labelImage.setIcon(images.Images.getInstance().BlackKnight);
 			} else {
 				labelImage.setIcon(images.Images.getInstance().WhiteKnight);
 			}	
 		} else if(piece instanceof PawnPiece) {
-			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().getBoard().blackPlayer)) {
 				labelImage.setIcon(images.Images.getInstance().BlackPawn);
 			} else {
 				labelImage.setIcon(images.Images.getInstance().WhitePawn);
 			}	
 		} else if(piece instanceof QueenPiece) {
-			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().getBoard().blackPlayer)) {
 				labelImage.setIcon(images.Images.getInstance().BlackQueen);
 			} else {
 				labelImage.setIcon(images.Images.getInstance().WhiteQueen);
 			}	
 		} else if(piece instanceof RookPiece) {
-			if(piece.getPlayer().equals(view.GameFrame.getInstance().blackPlayer)) {
+			if(piece.getPlayer().equals(view.GameFrame.getInstance().getBoard().blackPlayer)) {
 				labelImage.setIcon(images.Images.getInstance().BlackRook);
 			} else {
 				labelImage.setIcon(images.Images.getInstance().WhiteRook);

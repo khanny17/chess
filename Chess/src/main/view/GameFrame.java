@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
-
 import java.util.Observable;
 
 import javax.swing.JFrame;
@@ -14,7 +13,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import model.Board;
-import model.Player;
 import control.CheckmateChecker;
 import control.SpaceClickListener;
 
@@ -57,12 +55,6 @@ public class GameFrame extends JFrame implements java.util.Observer {
 	public CheckmateChecker whiteChecker;
 	public CheckmateChecker blackChecker;
 
-	/**
-	 * The 2 players of the current game
-	 */
-	public Player whitePlayer = new Player("White Player");
-	public Player blackPlayer = new Player("Black Player");
-	
 	public static GameFrame getInstance() {
 		return gfMain;
 	}
@@ -175,8 +167,8 @@ public class GameFrame extends JFrame implements java.util.Observer {
 		this.boardPanel = new view.BoardPanel(this.selector, this.getBoard());
 		this.add(boardPanel, java.awt.BorderLayout.CENTER);
 		
-		this.whiteChecker = new CheckmateChecker(this.whitePlayer);
-		this.blackChecker = new CheckmateChecker(this.blackPlayer);
+		this.whiteChecker = new CheckmateChecker(this.getBoard().whitePlayer);
+		this.blackChecker = new CheckmateChecker(this.getBoard().blackPlayer);
 		
 		this.whiteChecker.addObserver(this);
 		this.blackChecker.addObserver(this);

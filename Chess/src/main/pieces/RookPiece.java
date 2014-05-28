@@ -20,7 +20,7 @@ public class RookPiece extends Piece {
 	}
 	
 	public String toString() {
-		String myplayer = (getPlayer() == GameFrame.getInstance().whitePlayer) ? "White" : "Black";
+		String myplayer = (getPlayer() == GameFrame.getInstance().getBoard().whitePlayer) ? "White" : "Black";
 		return myplayer + " Rook";
 	}
 	

@@ -41,10 +41,10 @@ public class SpaceClickListener extends MouseAdapter {
 			//If the new space is empty don't select it
 			if(newPiece != null) {
 				if(GameFrame.getInstance().getBoard().curPlayer &&
-						newPiece.getPlayer().equals(GameFrame.getInstance().blackPlayer)) {
+						newPiece.getPlayer().equals(GameFrame.getInstance().getBoard().blackPlayer)) {
 					return;
 				} else if(!GameFrame.getInstance().getBoard().curPlayer &&
-						newPiece.getPlayer().equals(GameFrame.getInstance().whitePlayer)) {
+						newPiece.getPlayer().equals(GameFrame.getInstance().getBoard().whitePlayer)) {
 					return;
 				}
 				currentSpacePanel = newSpacePanel;
