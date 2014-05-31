@@ -1,3 +1,4 @@
+package model;
 import org.junit.After;
 import org.junit.Test;
 
