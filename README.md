@@ -2,7 +2,7 @@ Chess
 -----
 -----
 
-#####I'm using this as a way to teach myself java swing, as well as Git.
+#####A simple chess game implemented in Java
 
-It is a very simple setup, but eventually I hope to have a working two player game which is able to test for check/checkmate and accounts for special moves like en passant. Perhaps eventually I would try to set up some sort of basic AI to play against, but I am not there yet.
+This was a personal project mostly so I could practice what I learned in class on a larger scale application. There are a pretty decent number of comments, so if you are someone with only a little bit of experience this project might be pretty easy to understand.
  
