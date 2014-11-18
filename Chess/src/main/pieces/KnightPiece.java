@@ -14,7 +14,7 @@ public class KnightPiece extends Piece {
 	 * @param player the player of the piece
 	 */
 	public KnightPiece(Player player) {
-		super(player,PieceDef.KNIGHT);
+		super(player);
 	}
 	
 	public String toString() {
