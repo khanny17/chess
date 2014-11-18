@@ -13,7 +13,7 @@ public class PawnPiece extends Piece {
 	 * @param player the player of the piece
 	 */
 	public PawnPiece(Player player) {
-		super(player);
+		super(player,PieceDef.PAWN);
 	}
 
 	public String toString() {

@@ -13,7 +13,7 @@ public class KingPiece extends Piece {
 	 * @param player the player of the piece
 	 */
 	public KingPiece(Player player) {
-		super(player);
+		super(player,PieceDef.KING);
 	}
 	
 	public String toString() {

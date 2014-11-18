@@ -13,7 +13,7 @@ public class QueenPiece extends Piece {
 	 * @param player the player of the piece
 	 */
 	public QueenPiece(Player player) {
-		super(player);
+		super(player,PieceDef.QUEEN);
 	}
 	
 	public String toString() {

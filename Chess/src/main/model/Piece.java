@@ -2,6 +2,8 @@ package model;
 
 import java.util.HashMap;
 
+import pieces.PieceDef;
+
 /**
  * The abstract class used to define each of the chess pieces
  * Each piece inherits from this class
@@ -11,6 +13,7 @@ import java.util.HashMap;
 public abstract class Piece {
 
 	private Player player;
+	private PieceDef piece;
 	
 	/**
 	 * false until the player moves the piece
@@ -39,9 +42,10 @@ public abstract class Piece {
 	 * 
 	 * @param player the player of the piece
 	 */
-	public Piece(Player player) {
+	public Piece(Player player,PieceDef piece) {
 		this.player = player;
 		this.hasMoved = false;
+		this.piece = piece;
 		//Set up the hash map to define how the pawn moves/captures
 		this.defineMoves();
 		this.defineCaptures();
@@ -105,5 +109,9 @@ public abstract class Piece {
 
 	public String toString() {
 		return "Piece";
+	}
+	
+	public PieceDef getPiece() {
+		return piece;
 	}
 }

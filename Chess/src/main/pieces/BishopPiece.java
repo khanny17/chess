@@ -14,7 +14,7 @@ public class BishopPiece extends Piece {
 	 * @param player the player of the piece
 	 */
 	public BishopPiece(Player player) {
-		super(player);
+		super(player,PieceDef.BISHOP);
 	}
 	
 	public String toString() {

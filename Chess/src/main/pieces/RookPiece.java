@@ -15,7 +15,7 @@ public class RookPiece extends Piece {
 	 * @param player the player of the piece
 	 */
 	public RookPiece(Player player) {
-		super(player);
+		super(player,PieceDef.ROOK);
 	}
 	
 	public String toString() {
